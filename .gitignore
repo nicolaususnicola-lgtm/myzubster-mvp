@@ -1,0 +1,20 @@
+﻿# Dipendenze
+node_modules/
+vendor/
+__pycache__/
+*.pyc
+.env
+
+# Build
+dist/
+build/
+*.min.js
+
+# Dati sensibili
+*.key
+*.pem
+.env.local
+
+# Sistemi operativi
+.DS_Store
+Thumbs.db
