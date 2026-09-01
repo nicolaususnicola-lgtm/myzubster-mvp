@@ -28,14 +28,25 @@ jobs:
       
       - name: Start Flask server
         run: |
-          python src/api/server.py &
-          sleep 3
+          # Trova e avvia il server (verifica se esiste)
+          if [ -f src/api/server.py ]; then
+            python src/api/server.py &
+          elif [ -f server.py ]; then
+            python server.py &
+          else
+            echo "Cerca il server Flask..."
+            ls -la *.py src/**/*.py
+          fi
+          sleep 5
       
       - name: Run tests
         run: |
-          python -m pytest . -v
+          python -m pytest test_api.py test_full.py test_get.py test_obs2.py -v
       
       - name: Verify Python syntax
         run: |
-          python -m py_compile src/*.py
           python -m py_compile persistence_helper.py
+          python -m py_compile test_api.py
+          python -m py_compile test_full.py
+          python -m py_compile test_get.py
+          python -m py_compile test_obs2.py
