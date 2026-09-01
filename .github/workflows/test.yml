@@ -33,7 +33,7 @@ jobs:
       
       - name: Run tests
         run: |
-          pytest test_*.py -v
+          python -m pytest . -v
       
       - name: Verify Python syntax
         run: |
