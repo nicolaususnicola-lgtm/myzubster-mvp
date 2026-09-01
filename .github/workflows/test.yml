@@ -28,7 +28,7 @@ jobs:
       
       - name: Run tests
         run: |
-          pytest tests/ -v
+          pytest test_*.py -v
       
       - name: Verify Python syntax
         run: |
