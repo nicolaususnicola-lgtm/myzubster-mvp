@@ -26,6 +26,11 @@ jobs:
           pip install -r requirements.txt
           pip install pytest
       
+      - name: Start Flask server
+        run: |
+          python src/api/server.py &
+          sleep 3
+      
       - name: Run tests
         run: |
           pytest test_*.py -v
