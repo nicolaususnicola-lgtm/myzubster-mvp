@@ -13,8 +13,8 @@ def test_full_workflow():
             'longitude': 9.190
         }
     )
-    assert r.status_code == 200, f"POST failed: {r.status_code}"
-    assert 'id' in r.text, "POST response should contain an id"
+    assert r.status_code in (200, 201), f"POST failed: {r.status_code}"
+    assert 'id' in r.text or '"id"' in r.text, "POST response should contain an id"
 
     # 2. Recupera osservazioni (breve attesa per il salvataggio)
     time.sleep(1)

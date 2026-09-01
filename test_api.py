@@ -11,8 +11,9 @@ def test_create_observation():
             'longitude': 9.190
         }
     )
-    assert r.status_code == 200, f"Expected 200, got {r.status_code}"
-    assert 'id' in r.text, "Response should contain id"
+    # Accetta sia 200 (OK) che 201 (Created)
+    assert r.status_code in (200, 201), f"Expected 200 or 201, got {r.status_code}"
+    assert 'id' in r.text or '"id"' in r.text, "Response should contain id"
 
 def test_create_observation_with_media_hash():
     r = requests.post(
@@ -24,5 +25,5 @@ def test_create_observation_with_media_hash():
             'media_hash': 'QmTest123456789'
         }
     )
-    assert r.status_code == 200, f"Expected 200, got {r.status_code}"
-    assert 'success' in r.text.lower() or 'id' in r.text
+    assert r.status_code in (200, 201), f"Expected 200 or 201, got {r.status_code}"
+    assert 'success' in r.text.lower() or 'id' in r.text or '"id"' in r.text

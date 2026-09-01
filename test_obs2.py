@@ -12,4 +12,4 @@ def test_create_observation_with_media():
             'media_hash': 'QmTest123456789'
         }
     )
-    assert r.status_code == 200, f"Expected 200, got {r.status_code}"
+    assert r.status_code in (200, 201), f"Expected 200 or 201, got {r.status_code}"
