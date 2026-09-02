@@ -52,3 +52,22 @@ jobs:
           python -m py_compile test_full.py
           python -m py_compile test_get.py
           python -m py_compile test_obs2.py
+      - name: Build and verify Docker image
+        run: |
+          docker build --tag myzubster-mvp:test .
+          docker run --detach --name myzubster-docker-test --publish 5001:5000 myzubster-mvp:test
+          trap 'docker rm --force myzubster-docker-test' EXIT
+          for attempt in {1..20}; do
+            if curl --fail --silent http://127.0.0.1:5001/api/observations > /dev/null; then
+              break
+            fi
+            if [ "$attempt" -eq 20 ]; then
+              docker logs myzubster-docker-test
+              exit 1
+            fi
+            sleep 1
+          done
+          curl --fail --silent --request POST http://127.0.0.1:5001/api/observation \
+            --header 'Content-Type: application/json' \
+            --data '{"description":"CI Docker","latitude":44.0678,"longitude":12.5695}'
+          curl --fail --silent http://127.0.0.1:5001/api/observations | grep 'CI Docker'
