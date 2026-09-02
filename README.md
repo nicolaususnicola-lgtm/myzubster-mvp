@@ -1,52 +1,79 @@
-﻿# myzubster-mvp
+# myzubster-mvp
 
 Nicola IDEA MYZUBSTER
 
 ## Stato: MVP in sviluppo
 
-> ⚠️ **Nota**: questo progetto è in fase di sviluppo/validazione.
-> Funzionalità e roadmap possono cambiare senza preavviso.
-> Nessuna funzionalità qui descritta è da considerarsi production-ready.
+> Questo progetto è in fase di sviluppo e validazione. Non è production-ready.
 
-## Workflow: OBSERVE → DOCUMENT → CONNECT → COLLABORATE → VERIFY → PUBLISH → REWARD
+## Workflow
 
-## Avvio rapido
+OBSERVE → DOCUMENT → CONNECT → COLLABORATE → VERIFY → PUBLISH → REWARD
+
+## Avvio rapido con Docker
 
 ```bash
-# clona il repo
-git clone https://github.com/TUO_USERNAME/myzubster-mvp.git
+git clone https://github.com/nicolaususnicola-lgtm/myzubster-mvp.git
 cd myzubster-mvp
-
-# installa dipendenze (se presenti)
-# npm install   (per Node.js)
-# pip install -r requirements.txt   (per Python)
-
-# avvia i test
-# npm test   /   pytest
+docker compose up --build -d
+docker compose ps
 ```
 
-## Struttura del progetto
+Quando il container è `healthy`, apri:
 
+- `http://localhost:5000/api/observations`
+
+Prova la creazione di un'osservazione:
+
+```bash
+curl -X POST http://localhost:5000/api/observation \
+  -H "Content-Type: application/json" \
+  -d '{"description":"Prova Docker","latitude":44.0678,"longitude":12.5695}'
 ```
-myzubster-mvp/
-├── src/          # Codice sorgente principale
-├── docs/         # Documentazione tecnica
-├── data/         # Dati di esempio/test (non sensibili)
-├── tests/        # Test automatici
-├── scripts/      # Script di automazione
-├── ROADMAP.md    # Piano di sviluppo
-├── LICENSE       # Licenza open-source
-└── README.md     # Questo file
+
+Controlla i log:
+
+```bash
+docker compose logs -f api
+```
+
+I dati sono conservati nel volume Docker `observations-data` e rimangono
+disponibili dopo il riavvio dei container.
+
+```bash
+# arresta senza cancellare i dati
+docker compose down
+
+# riavvia
+docker compose up -d
+```
+
+> Non usare `docker compose down -v` se vuoi conservare le osservazioni:
+> l'opzione `-v` elimina anche il volume dei dati.
+
+## Avvio senza Docker
+
+```bash
+python -m venv .venv
+# Windows PowerShell: .venv\Scripts\Activate.ps1
+# macOS/Linux: source .venv/bin/activate
+python -m pip install -r requirements.txt
+python src/api/server.py
+```
+
+## Test automatici
+
+```bash
+python -m pip install pytest
+python -m pytest -v
 ```
 
 ## Contribuire
 
-Vedi [CONTRIBUTING.md](CONTRIBUTING.md)
+Vedi [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Licenza
 
-Vedi [LICENSE](LICENSE)
+Vedi [LICENSE](LICENSE).
 
----
-
-**Nota**: Questo è un progetto indipendente. MYZ è un ledger interno di ricompensa/contabilità, non una valuta esterna.
+MYZ è un ledger interno di ricompensa e contabilità, non una valuta esterna.
