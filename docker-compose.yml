@@ -1,0 +1,16 @@
+services:
+  api:
+    build:
+      context: .
+    ports:
+      - "5000:5000"
+    environment:
+      MYZUBSTER_HOST: 0.0.0.0
+      MYZUBSTER_PORT: 5000
+      MYZUBSTER_OBSERVATIONS_FILE: /data/observations.json
+    volumes:
+      - observations-data:/data
+    restart: unless-stopped
+
+volumes:
+  observations-data:
