@@ -23,6 +23,9 @@ Quando il container è `healthy`, apri:
 
 - `http://localhost:5000/api/observations`
 
+In Docker l'API viene eseguita con Gunicorn. Docker invia `SIGTERM` e concede
+15 secondi al processo per completare uno shutdown pulito.
+
 Prova la creazione di un'osservazione:
 
 ```bash
@@ -41,11 +44,26 @@ I dati sono conservati nel volume Docker `observations-data` e rimangono
 disponibili dopo il riavvio dei container.
 
 ```bash
+# verifica il riavvio
+docker compose restart api
+docker compose ps
+
 # arresta senza cancellare i dati
 docker compose down
 
+# verifica che non rimangano container attivi o terminati forzatamente
+docker compose ps -a
+
 # riavvia
 docker compose up -d
+```
+
+Lo stop atteso è pulito. Se compare ancora `Exited (137)`, raccogli:
+
+```bash
+docker compose ps -a
+docker compose logs --tail 100 api
+docker inspect myzubster-mvp-api-1
 ```
 
 > Non usare `docker compose down -v` se vuoi conservare le osservazioni:
@@ -60,6 +78,9 @@ python -m venv .venv
 python -m pip install -r requirements.txt
 python src/api/server.py
 ```
+
+L'avvio diretto con `python src/api/server.py` usa il server Flask soltanto
+per lo sviluppo locale. Il container usa Gunicorn.
 
 ## Test automatici
 
