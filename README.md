@@ -69,6 +69,40 @@ docker inspect myzubster-mvp-api-1
 > Non usare `docker compose down -v` se vuoi conservare le osservazioni:
 > l'opzione `-v` elimina anche il volume dei dati.
 
+## AI locale e RAG
+
+Lo stack include Ollama sul computer host, Qdrant e Open WebUI. Prima dell'avvio
+scarica sia il modello conversazionale sia il modello di embedding:
+
+```powershell
+ollama pull mistral
+ollama pull nomic-embed-text
+docker compose up -d --build
+```
+
+Servizi locali:
+
+- API MyZubster: `http://localhost:5000`
+- Open WebUI: `http://localhost:3001`
+- Qdrant: `http://localhost:6333/dashboard`
+- Ollama: `http://localhost:11434`
+
+Crea un'osservazione e interroga l'endpoint RAG:
+
+```powershell
+Invoke-RestMethod -Method Post -Uri "http://localhost:5000/api/observation" `
+  -ContentType "application/json" `
+  -Body '{"description":"Imballaggio riciclabile osservato nel marketplace","latitude":44.0678,"longitude":12.5695}'
+
+Invoke-RestMethod -Method Post -Uri "http://localhost:5000/api/ai/ask" `
+  -ContentType "application/json" `
+  -Body '{"question":"Quali osservazioni riguardano la sostenibilità?"}'
+```
+
+L'endpoint genera gli embedding con Ollama, indicizza le osservazioni in Qdrant,
+recupera le fonti più pertinenti e chiede a Mistral una risposta basata soltanto
+sul contesto recuperato.
+
 ## Avvio senza Docker
 
 ```bash
