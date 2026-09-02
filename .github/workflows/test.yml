@@ -41,11 +41,13 @@ jobs:
       
       - name: Run tests
         run: |
-          python -m pytest test_api.py test_full.py test_get.py test_obs2.py -v
+          python -m pytest test_observation_e2e.py test_api.py test_full.py test_get.py test_obs2.py -v
       
       - name: Verify Python syntax
         run: |
           python -m py_compile persistence_helper.py
+          python -m py_compile src/api/server.py src/core/observation.py
+          python -m py_compile test_observation_e2e.py
           python -m py_compile test_api.py
           python -m py_compile test_full.py
           python -m py_compile test_get.py
