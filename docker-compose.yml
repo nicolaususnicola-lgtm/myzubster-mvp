@@ -2,6 +2,7 @@ services:
   api:
     build:
       context: .
+    init: true
     ports:
       - "5000:5000"
     environment:
@@ -11,6 +12,8 @@ services:
     volumes:
       - observations-data:/data
     restart: unless-stopped
+    stop_signal: SIGTERM
+    stop_grace_period: 15s
 
 volumes:
   observations-data:
