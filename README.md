@@ -1,12 +1,73 @@
 # N4K48 // MyZubster MVP
 
-![N4K48 Neon Plaza](https://drive.google.com/uc?export=view&id=1zE1MuqFcjU8xUp4NZJfZde9Rdxtu0cwt)
+<p align="center">
+  <a href="https://github.com/MyZubster-Ecosystem/myzubster">
+    <img src="https://drive.google.com/uc?export=view&id=1zE1MuqFcjU8xUp4NZJfZde9Rdxtu0cwt" alt="N4K48 entra nel Neon Plaza MyZubster" width="760">
+  </a>
+</p>
+
+<p align="center">
+  <strong>N4K48 · EXPLORER · NEON PLAZA · MYZUBSTER</strong><br>
+  Profilo visuale di Nicola collegato all'ecosistema MyZubster e guidato da Zorgax.
+</p>
+
+<p align="center">
+  <a href="https://github.com/MyZubster-Ecosystem/myzubster"><strong>MYZUBSTER CORE</strong></a> ·
+  <a href="https://github.com/MyZubster-Ecosystem/MyZubster-Visual"><strong>VISUAL UNIVERSE</strong></a> ·
+  <a href="https://github.com/MyZubster-Ecosystem/myzubster/blob/main/public/fumetto.html"><strong>COMIC UNIVERSE</strong></a> ·
+  <a href="docs/N4K48.md"><strong>N4K48 PROFILE</strong></a>
+</p>
 
 > **Virtual identity:** N4K48  
 > **Archetype:** Explorer  
 > **Entry point:** Neon Plaza  
 > **Operational path:** Project Planner + AI/Zorgax  
+> **MyZubster connection:** ecosystem participant / visual profile  
 > **Repository status:** MVP in sviluppo e validazione, non production-ready
+
+## Visual identity // N4K48 × MyZubster
+
+<table>
+<tr>
+<td width="50%" align="center">
+<a href="https://github.com/MyZubster-Ecosystem/MyZubster-Visual/blob/main/assets/cyberpunk-series/MyZubster-Cyberpunk-Serie-01-Daniel-nel-Neon.png">
+<img src="https://raw.githubusercontent.com/MyZubster-Ecosystem/MyZubster-Visual/main/assets/cyberpunk-series/MyZubster-Cyberpunk-Serie-01-Daniel-nel-Neon.png" width="100%" alt="MyZubster Daniel nel Neon">
+</a><br><strong>MYZUBSTER // NEON LANGUAGE</strong>
+</td>
+<td width="50%" align="center">
+<a href="https://github.com/MyZubster-Ecosystem/MyZubster-Visual/blob/main/assets/cyberpunk-series/MyZubster-Cyberpunk-Serie-04-Rete-Decentralizzata.png">
+<img src="https://raw.githubusercontent.com/MyZubster-Ecosystem/MyZubster-Visual/main/assets/cyberpunk-series/MyZubster-Cyberpunk-Serie-04-Rete-Decentralizzata.png" width="100%" alt="MyZubster rete decentralizzata">
+</a><br><strong>MYZUBSTER // CONNECTED ECOSYSTEM</strong>
+</td>
+</tr>
+<tr>
+<td width="50%" align="center">
+<a href="https://github.com/MyZubster-Ecosystem/MyZubster-Visual/blob/main/assets/zorgax/zorgax-cyberpunk-brand-ecosystem.jpg">
+<img src="https://raw.githubusercontent.com/MyZubster-Ecosystem/MyZubster-Visual/main/assets/zorgax/zorgax-cyberpunk-brand-ecosystem.jpg" width="100%" alt="Zorgax cyberpunk ecosystem">
+</a><br><strong>ZORGAX // OPERATIONAL GUIDE</strong>
+</td>
+<td width="50%" align="center">
+<a href="https://github.com/MyZubster-Ecosystem/MyZubster-Visual/blob/main/assets/comic/collaborazione-futura.png">
+<img src="https://raw.githubusercontent.com/MyZubster-Ecosystem/MyZubster-Visual/main/assets/comic/collaborazione-futura.png" width="100%" alt="MyZubster collaborazione futura">
+</a><br><strong>MYZUBSTER // COLLABORATION</strong>
+</td>
+</tr>
+</table>
+
+### Connection graph
+
+```mermaid
+flowchart LR
+    N4K48["N4K48 / Nicola"] --> NP["Neon Plaza"]
+    NP --> Z["Zorgax"]
+    Z --> PP["Project Planner + AI"]
+    PP --> MVP["myzubster-mvp"]
+    MVP --> EV["Verified technical evidence"]
+    N4K48 --> MYZ["MyZubster Ecosystem"]
+    MYZ --> VIS["MyZubster Visual Universe"]
+    MYZ --> COMIC["Comic / Metaverse narrative"]
+    EV --> MYZ
+```
 
 ## N4K48 entra nel Metaverso MyZubster
 
@@ -19,8 +80,10 @@ Il metaverso qui è una **rappresentazione narrativa / concept**, non una dichia
 | Visual | Ruolo |
 | --- | --- |
 | [Neon Plaza — H4X0R e N4K48](https://drive.google.com/file/d/1zE1MuqFcjU8xUp4NZJfZde9Rdxtu0cwt/view) | Ingresso di N4K48 nel Metaverso MyZubster |
+| [MyZubster — Manifesto Neon](https://github.com/MyZubster-Ecosystem/MyZubster-Visual/blob/main/assets/comic/MyZubster-Cyberpunk-Visual-01-Manifesto-Neon.png) | Identità visuale dell'universo MyZubster |
 | [MyZubster — Daniel nel Neon](https://github.com/MyZubster-Ecosystem/MyZubster-Visual/blob/main/assets/cyberpunk-series/MyZubster-Cyberpunk-Serie-01-Daniel-nel-Neon.png) | Linguaggio visuale cyberpunk / worldbuilding |
 | [MyZubster — Rete Decentralizzata](https://github.com/MyZubster-Ecosystem/MyZubster-Visual/blob/main/assets/cyberpunk-series/MyZubster-Cyberpunk-Serie-04-Rete-Decentralizzata.png) | Rappresentazione visuale dell'ecosistema connesso |
+| [Unmet Contributors Concept](https://github.com/MyZubster-Ecosystem/MyZubster-Visual/blob/main/assets/cyberpunk-series/MyZubster-Cyberpunk-Unmet-Contributors-Concept.png) | Spazio narrativo per nuovi contributor |
 | [Zorgax Cyberpunk Brand Ecosystem](https://github.com/MyZubster-Ecosystem/MyZubster-Visual/blob/main/assets/zorgax/zorgax-cyberpunk-brand-ecosystem.jpg) | Zorgax come guida operativa e narrativa |
 | [Collaborazione futura](https://github.com/MyZubster-Ecosystem/MyZubster-Visual/blob/main/assets/comic/collaborazione-futura.png) | Concept di collaborazione nell'ecosistema |
 
@@ -48,6 +111,17 @@ Queste sono componenti tecniche reali già integrate nell'MVP:
 - avvio API con Gunicorn e shutdown Docker pulito;
 - integrazione locale Ollama + Qdrant;
 - endpoint RAG che recupera osservazioni pertinenti e genera risposte basate sul contesto locale.
+
+## Collegamento a MyZubster
+
+N4K48 non è presentato come un progetto isolato. Questo repository rappresenta il percorso tecnico di Nicola e rimanda esplicitamente ai nodi pubblici MyZubster:
+
+- **Core ecosystem:** https://github.com/MyZubster-Ecosystem/myzubster
+- **Visual canon:** https://github.com/MyZubster-Ecosystem/MyZubster-Visual
+- **Comic universe:** https://github.com/MyZubster-Ecosystem/myzubster/blob/main/public/fumetto.html
+- **N4K48 visual profile:** [`docs/N4K48.md`](docs/N4K48.md)
+
+Il collegamento indica appartenenza narrativa e interoperabilità del percorso con l'ecosistema; non implica che ogni componente MyZubster sia già integrato tecnicamente in questo MVP.
 
 ## Workflow MyZubster
 
@@ -165,7 +239,7 @@ python -m pytest -v
 
 ## Identità N4K48
 
-La scheda estesa di N4K48 è in [`docs/N4K48.md`](docs/N4K48.md).
+La scheda estesa e visuale di N4K48 è in [`docs/N4K48.md`](docs/N4K48.md).
 
 ## Contribuire
 
