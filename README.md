@@ -1,14 +1,61 @@
-# myzubster-mvp
+# N4K48 // MyZubster MVP
 
-Nicola IDEA MYZUBSTER
+![N4K48 Neon Plaza](https://drive.google.com/uc?export=view&id=1zE1MuqFcjU8xUp4NZJfZde9Rdxtu0cwt)
 
-## Stato: MVP in sviluppo
+> **Virtual identity:** N4K48  
+> **Archetype:** Explorer  
+> **Entry point:** Neon Plaza  
+> **Operational path:** Project Planner + AI/Zorgax  
+> **Repository status:** MVP in sviluppo e validazione, non production-ready
 
-> Questo progetto è in fase di sviluppo e validazione. Non è production-ready.
+## N4K48 entra nel Metaverso MyZubster
 
-## Workflow
+N4K48 è l'identità virtuale scelta da Nicola per rappresentare il proprio percorso nel mondo visuale MyZubster. Il punto di partenza narrativo è **Neon Plaza**: un hub cyberpunk dal quale progetti, attività, evidenze e strumenti possono essere raccontati e collegati in modo visuale.
 
+Il metaverso qui è una **rappresentazione narrativa / concept**, non una dichiarazione che esista già un ambiente 3D production-ready. Il repository contiene invece componenti tecnici reali e verificabili dell'MVP.
+
+### Visual universe
+
+| Visual | Ruolo |
+| --- | --- |
+| [Neon Plaza — H4X0R e N4K48](https://drive.google.com/file/d/1zE1MuqFcjU8xUp4NZJfZde9Rdxtu0cwt/view) | Ingresso di N4K48 nel Metaverso MyZubster |
+| [MyZubster — Daniel nel Neon](https://github.com/MyZubster-Ecosystem/MyZubster-Visual/blob/main/assets/cyberpunk-series/MyZubster-Cyberpunk-Serie-01-Daniel-nel-Neon.png) | Linguaggio visuale cyberpunk / worldbuilding |
+| [MyZubster — Rete Decentralizzata](https://github.com/MyZubster-Ecosystem/MyZubster-Visual/blob/main/assets/cyberpunk-series/MyZubster-Cyberpunk-Serie-04-Rete-Decentralizzata.png) | Rappresentazione visuale dell'ecosistema connesso |
+| [Zorgax Cyberpunk Brand Ecosystem](https://github.com/MyZubster-Ecosystem/MyZubster-Visual/blob/main/assets/zorgax/zorgax-cyberpunk-brand-ecosystem.jpg) | Zorgax come guida operativa e narrativa |
+| [Collaborazione futura](https://github.com/MyZubster-Ecosystem/MyZubster-Visual/blob/main/assets/comic/collaborazione-futura.png) | Concept di collaborazione nell'ecosistema |
+
+## First Mission
+
+**Obiettivo narrativo:** trasformare l'ingresso di N4K48 in un percorso operativo verificabile.
+
+1. Entrare nel Neon Plaza.
+2. Collegare identità, progetto e stato del lavoro.
+3. Usare il Project Planner / Zorgax come guida del percorso.
+4. Produrre risultati concreti ed evidenze tecniche.
+5. Sbloccare il passo successivo soltanto sulla base di attività realmente completate.
+
+## Cosa è già stato completato nel repository
+
+Queste sono componenti tecniche reali già integrate nell'MVP:
+
+- creazione di osservazioni via API con risposta HTTP `201`;
+- persistenza JSON configurabile e scrittura atomica;
+- recupero delle osservazioni e test end-to-end;
+- validazione JSON e coordinate;
+- Docker non-root per sviluppo locale;
+- volume persistente e health check;
+- CI che costruisce e verifica il container;
+- avvio API con Gunicorn e shutdown Docker pulito;
+- integrazione locale Ollama + Qdrant;
+- endpoint RAG che recupera osservazioni pertinenti e genera risposte basate sul contesto locale.
+
+## Workflow MyZubster
+
+```text
 OBSERVE → DOCUMENT → CONNECT → COLLABORATE → VERIFY → PUBLISH → REWARD
+```
+
+Il principio resta semplice: **visual e storytelling raccontano il percorso; codice, test, commit ed evidenze dimostrano ciò che è realmente stato completato.**
 
 ## Avvio rapido con Docker
 
@@ -23,8 +70,7 @@ Quando il container è `healthy`, apri:
 
 - `http://localhost:5000/api/observations`
 
-In Docker l'API viene eseguita con Gunicorn. Docker invia `SIGTERM` e concede
-15 secondi al processo per completare uno shutdown pulito.
+In Docker l'API viene eseguita con Gunicorn. Docker invia `SIGTERM` e concede 15 secondi al processo per completare uno shutdown pulito.
 
 Prova la creazione di un'osservazione:
 
@@ -40,8 +86,7 @@ Controlla i log:
 docker compose logs -f api
 ```
 
-I dati sono conservati nel volume Docker `observations-data` e rimangono
-disponibili dopo il riavvio dei container.
+I dati sono conservati nel volume Docker `observations-data` e rimangono disponibili dopo il riavvio dei container.
 
 ```bash
 # verifica il riavvio
@@ -66,13 +111,11 @@ docker compose logs --tail 100 api
 docker inspect myzubster-mvp-api-1
 ```
 
-> Non usare `docker compose down -v` se vuoi conservare le osservazioni:
-> l'opzione `-v` elimina anche il volume dei dati.
+> Non usare `docker compose down -v` se vuoi conservare le osservazioni: l'opzione `-v` elimina anche il volume dei dati.
 
 ## AI locale e RAG
 
-Lo stack include Ollama sul computer host, Qdrant e Open WebUI. Prima dell'avvio
-scarica sia il modello conversazionale sia il modello di embedding:
+Lo stack include Ollama sul computer host, Qdrant e Open WebUI. Prima dell'avvio scarica sia il modello conversazionale sia il modello di embedding:
 
 ```powershell
 ollama pull mistral
@@ -99,9 +142,7 @@ Invoke-RestMethod -Method Post -Uri "http://localhost:5000/api/ai/ask" `
   -Body '{"question":"Quali osservazioni riguardano la sostenibilità?"}'
 ```
 
-L'endpoint genera gli embedding con Ollama, indicizza le osservazioni in Qdrant,
-recupera le fonti più pertinenti e chiede a Mistral una risposta basata soltanto
-sul contesto recuperato.
+L'endpoint genera gli embedding con Ollama, indicizza le osservazioni in Qdrant, recupera le fonti più pertinenti e chiede a Mistral una risposta basata soltanto sul contesto recuperato.
 
 ## Avvio senza Docker
 
@@ -113,8 +154,7 @@ python -m pip install -r requirements.txt
 python src/api/server.py
 ```
 
-L'avvio diretto con `python src/api/server.py` usa il server Flask soltanto
-per lo sviluppo locale. Il container usa Gunicorn.
+L'avvio diretto con `python src/api/server.py` usa il server Flask soltanto per lo sviluppo locale. Il container usa Gunicorn.
 
 ## Test automatici
 
@@ -122,6 +162,10 @@ per lo sviluppo locale. Il container usa Gunicorn.
 python -m pip install pytest
 python -m pytest -v
 ```
+
+## Identità N4K48
+
+La scheda estesa di N4K48 è in [`docs/N4K48.md`](docs/N4K48.md).
 
 ## Contribuire
 
