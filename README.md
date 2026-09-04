@@ -2,18 +2,19 @@
 
 <p align="center">
   <a href="https://github.com/MyZubster-Ecosystem/myzubster">
-    <img src="https://drive.google.com/uc?export=view&id=1zE1MuqFcjU8xUp4NZJfZde9Rdxtu0cwt" alt="N4K48 entra nel Neon Plaza MyZubster" width="760">
+    <img src="https://raw.githubusercontent.com/MyZubster-Ecosystem/myzubster/main/docs/visuals/drive-import-2026-09-03/Neon-Plaza-H4X0R-N4K48-Cyberpunk.jpg" alt="N4K48 entra nel Neon Plaza MyZubster" width="760">
   </a>
 </p>
 
 <p align="center">
-  <strong>N4K48 · EXPLORER · NEON PLAZA · MYZUBSTER</strong><br>
-  Profilo visuale di Nicola collegato all'ecosistema MyZubster e guidato da Zorgax.
+  <strong>N4K48 · EXPLORER · NEON PLAZA · CYBERPUNK · CIRCULAR ECONOMY · MYZUBSTER</strong><br>
+  Profilo visuale di Nicola collegato all'ecosistema MyZubster, all'universo cyberpunk e al percorso di economia circolare.
 </p>
 
 <p align="center">
   <a href="https://github.com/MyZubster-Ecosystem/myzubster"><strong>MYZUBSTER CORE</strong></a> ·
   <a href="https://github.com/MyZubster-Ecosystem/MyZubster-Visual"><strong>VISUAL UNIVERSE</strong></a> ·
+  <a href="https://github.com/MyZubster-Ecosystem/myzubster/blob/main/docs/visuals/MyZubster-Economia-Circolare-Cyberpunk.jpg"><strong>CIRCULAR ECONOMY</strong></a> ·
   <a href="https://github.com/MyZubster-Ecosystem/myzubster/blob/main/public/fumetto.html"><strong>COMIC UNIVERSE</strong></a> ·
   <a href="docs/N4K48.md"><strong>N4K48 PROFILE</strong></a>
 </p>
@@ -23,33 +24,64 @@
 > **Entry point:** Neon Plaza  
 > **Operational path:** Project Planner + AI/Zorgax  
 > **MyZubster connection:** ecosystem participant / visual profile  
+> **Circular economy connection:** visual/concept + evidence-first path  
 > **Repository status:** MVP in sviluppo e validazione, non production-ready
+
+## N4K48 × Cyberpunk × Economia Circolare
+
+N4K48 collega il percorso tecnico di Nicola al linguaggio visuale cyberpunk di MyZubster e a un modello di economia circolare basato su osservazioni, documentazione ed evidenze. Il collegamento è progettuale e narrativo: **non attribuisce automaticamente risultati ambientali, accreditation o reward non verificati**.
+
+<table>
+<tr>
+<td width="50%" align="center">
+<a href="https://github.com/MyZubster-Ecosystem/myzubster/blob/main/docs/visuals/MyZubster-Economia-Circolare-Cyberpunk.jpg"><img src="https://raw.githubusercontent.com/MyZubster-Ecosystem/myzubster/main/docs/visuals/MyZubster-Economia-Circolare-Cyberpunk.jpg" width="100%" alt="MyZubster Economia Circolare Cyberpunk"></a><br><strong>N4K48 // CIRCULAR ECONOMY</strong>
+</td>
+<td width="50%" align="center">
+<a href="https://github.com/MyZubster-Ecosystem/myzubster/blob/main/docs/visuals/MyZubster-Space-Station-Cyberpunk.jpg"><img src="https://raw.githubusercontent.com/MyZubster-Ecosystem/myzubster/main/docs/visuals/MyZubster-Space-Station-Cyberpunk.jpg" width="100%" alt="MyZubster Space Station Cyberpunk"></a><br><strong>N4K48 // SPACE STATION</strong>
+</td>
+</tr>
+<tr>
+<td colspan="2" align="center">
+<a href="https://github.com/MyZubster-Ecosystem/myzubster/blob/main/docs/visuals/MyZubster-Pagamenti-Economia-Circolare.jpg"><img src="https://raw.githubusercontent.com/MyZubster-Ecosystem/myzubster/main/docs/visuals/MyZubster-Pagamenti-Economia-Circolare.jpg" width="72%" alt="MyZubster Pagamenti Economia Circolare"></a><br><strong>MYZUBSTER // CIRCULAR VALUE FLOW</strong>
+</td>
+</tr>
+</table>
+
+### Circular path
+
+```mermaid
+flowchart LR
+    N["N4K48 / Nicola"] --> O["Observe"]
+    O --> D["Document"]
+    D --> E["Evidence"]
+    E --> M["Measure"]
+    M --> V["Verify"]
+    V --> C["Circular economy"]
+    C --> R["Recovery / regeneration"]
+    R --> X["New cycle"]
+    N --> NP["Neon Plaza / Cyberpunk"]
+    NP --> C
+```
+
+> **Evidence boundary:** integrità tecnica e visual storytelling non equivalgono da soli a validazione fisica/scientifica. Stati come `verified` o `accredited` richiedono evidence e autorizzazioni appropriate.
 
 ## Visual identity // N4K48 × MyZubster
 
 <table>
 <tr>
 <td width="50%" align="center">
-<a href="https://github.com/MyZubster-Ecosystem/MyZubster-Visual/blob/main/assets/cyberpunk-series/MyZubster-Cyberpunk-Serie-01-Daniel-nel-Neon.png">
-<img src="https://raw.githubusercontent.com/MyZubster-Ecosystem/MyZubster-Visual/main/assets/cyberpunk-series/MyZubster-Cyberpunk-Serie-01-Daniel-nel-Neon.png" width="100%" alt="MyZubster Daniel nel Neon">
-</a><br><strong>MYZUBSTER // NEON LANGUAGE</strong>
+<a href="https://github.com/MyZubster-Ecosystem/MyZubster-Visual/blob/main/assets/cyberpunk-series/MyZubster-Cyberpunk-Serie-01-Daniel-nel-Neon.png"><img src="https://raw.githubusercontent.com/MyZubster-Ecosystem/MyZubster-Visual/main/assets/cyberpunk-series/MyZubster-Cyberpunk-Serie-01-Daniel-nel-Neon.png" width="100%" alt="MyZubster Daniel nel Neon"></a><br><strong>MYZUBSTER // NEON LANGUAGE</strong>
 </td>
 <td width="50%" align="center">
-<a href="https://github.com/MyZubster-Ecosystem/MyZubster-Visual/blob/main/assets/cyberpunk-series/MyZubster-Cyberpunk-Serie-04-Rete-Decentralizzata.png">
-<img src="https://raw.githubusercontent.com/MyZubster-Ecosystem/MyZubster-Visual/main/assets/cyberpunk-series/MyZubster-Cyberpunk-Serie-04-Rete-Decentralizzata.png" width="100%" alt="MyZubster rete decentralizzata">
-</a><br><strong>MYZUBSTER // CONNECTED ECOSYSTEM</strong>
+<a href="https://github.com/MyZubster-Ecosystem/MyZubster-Visual/blob/main/assets/cyberpunk-series/MyZubster-Cyberpunk-Serie-04-Rete-Decentralizzata.png"><img src="https://raw.githubusercontent.com/MyZubster-Ecosystem/MyZubster-Visual/main/assets/cyberpunk-series/MyZubster-Cyberpunk-Serie-04-Rete-Decentralizzata.png" width="100%" alt="MyZubster rete decentralizzata"></a><br><strong>MYZUBSTER // CONNECTED ECOSYSTEM</strong>
 </td>
 </tr>
 <tr>
 <td width="50%" align="center">
-<a href="https://github.com/MyZubster-Ecosystem/MyZubster-Visual/blob/main/assets/zorgax/zorgax-cyberpunk-brand-ecosystem.jpg">
-<img src="https://raw.githubusercontent.com/MyZubster-Ecosystem/MyZubster-Visual/main/assets/zorgax/zorgax-cyberpunk-brand-ecosystem.jpg" width="100%" alt="Zorgax cyberpunk ecosystem">
-</a><br><strong>ZORGAX // OPERATIONAL GUIDE</strong>
+<a href="https://github.com/MyZubster-Ecosystem/MyZubster-Visual/blob/main/assets/zorgax/zorgax-cyberpunk-brand-ecosystem.jpg"><img src="https://raw.githubusercontent.com/MyZubster-Ecosystem/MyZubster-Visual/main/assets/zorgax/zorgax-cyberpunk-brand-ecosystem.jpg" width="100%" alt="Zorgax cyberpunk ecosystem"></a><br><strong>ZORGAX // OPERATIONAL GUIDE</strong>
 </td>
 <td width="50%" align="center">
-<a href="https://github.com/MyZubster-Ecosystem/MyZubster-Visual/blob/main/assets/comic/collaborazione-futura.png">
-<img src="https://raw.githubusercontent.com/MyZubster-Ecosystem/MyZubster-Visual/main/assets/comic/collaborazione-futura.png" width="100%" alt="MyZubster collaborazione futura">
-</a><br><strong>MYZUBSTER // COLLABORATION</strong>
+<a href="https://github.com/MyZubster-Ecosystem/MyZubster-Visual/blob/main/assets/comic/collaborazione-futura.png"><img src="https://raw.githubusercontent.com/MyZubster-Ecosystem/MyZubster-Visual/main/assets/comic/collaborazione-futura.png" width="100%" alt="MyZubster collaborazione futura"></a><br><strong>MYZUBSTER // COLLABORATION</strong>
 </td>
 </tr>
 </table>
@@ -65,7 +97,9 @@ flowchart LR
     MVP --> EV["Verified technical evidence"]
     N4K48 --> MYZ["MyZubster Ecosystem"]
     MYZ --> VIS["MyZubster Visual Universe"]
+    MYZ --> CE["Circular Economy"]
     MYZ --> COMIC["Comic / Metaverse narrative"]
+    CE --> CV["Cyberpunk circular visuals"]
     EV --> MYZ
 ```
 
@@ -79,13 +113,13 @@ Il metaverso qui è una **rappresentazione narrativa / concept**, non una dichia
 
 | Visual | Ruolo |
 | --- | --- |
-| [Neon Plaza — H4X0R e N4K48](https://drive.google.com/file/d/1zE1MuqFcjU8xUp4NZJfZde9Rdxtu0cwt/view) | Ingresso di N4K48 nel Metaverso MyZubster |
+| [Neon Plaza — H4X0R e N4K48](https://github.com/MyZubster-Ecosystem/myzubster/blob/main/docs/visuals/drive-import-2026-09-03/Neon-Plaza-H4X0R-N4K48-Cyberpunk.jpg) | Ingresso di N4K48 nel Metaverso MyZubster |
+| [Economia Circolare Cyberpunk](https://github.com/MyZubster-Ecosystem/myzubster/blob/main/docs/visuals/MyZubster-Economia-Circolare-Cyberpunk.jpg) | Connessione N4K48 al percorso circolare |
+| [Pagamenti Economia Circolare](https://github.com/MyZubster-Ecosystem/myzubster/blob/main/docs/visuals/MyZubster-Pagamenti-Economia-Circolare.jpg) | Rappresentazione del value flow circolare |
+| [Space Station Cyberpunk](https://github.com/MyZubster-Ecosystem/myzubster/blob/main/docs/visuals/MyZubster-Space-Station-Cyberpunk.jpg) | Layer Space Station / cyberpunk |
 | [MyZubster — Manifesto Neon](https://github.com/MyZubster-Ecosystem/MyZubster-Visual/blob/main/assets/comic/MyZubster-Cyberpunk-Visual-01-Manifesto-Neon.png) | Identità visuale dell'universo MyZubster |
-| [MyZubster — Daniel nel Neon](https://github.com/MyZubster-Ecosystem/MyZubster-Visual/blob/main/assets/cyberpunk-series/MyZubster-Cyberpunk-Serie-01-Daniel-nel-Neon.png) | Linguaggio visuale cyberpunk / worldbuilding |
 | [MyZubster — Rete Decentralizzata](https://github.com/MyZubster-Ecosystem/MyZubster-Visual/blob/main/assets/cyberpunk-series/MyZubster-Cyberpunk-Serie-04-Rete-Decentralizzata.png) | Rappresentazione visuale dell'ecosistema connesso |
-| [Unmet Contributors Concept](https://github.com/MyZubster-Ecosystem/MyZubster-Visual/blob/main/assets/cyberpunk-series/MyZubster-Cyberpunk-Unmet-Contributors-Concept.png) | Spazio narrativo per nuovi contributor |
 | [Zorgax Cyberpunk Brand Ecosystem](https://github.com/MyZubster-Ecosystem/MyZubster-Visual/blob/main/assets/zorgax/zorgax-cyberpunk-brand-ecosystem.jpg) | Zorgax come guida operativa e narrativa |
-| [Collaborazione futura](https://github.com/MyZubster-Ecosystem/MyZubster-Visual/blob/main/assets/comic/collaborazione-futura.png) | Concept di collaborazione nell'ecosistema |
 
 ## First Mission
 
@@ -95,7 +129,8 @@ Il metaverso qui è una **rappresentazione narrativa / concept**, non una dichia
 2. Collegare identità, progetto e stato del lavoro.
 3. Usare il Project Planner / Zorgax come guida del percorso.
 4. Produrre risultati concreti ed evidenze tecniche.
-5. Sbloccare il passo successivo soltanto sulla base di attività realmente completate.
+5. Collegare le evidenze al percorso di economia circolare quando applicabile.
+6. Sbloccare il passo successivo soltanto sulla base di attività realmente completate.
 
 ## Cosa è già stato completato nel repository
 
@@ -118,6 +153,7 @@ N4K48 non è presentato come un progetto isolato. Questo repository rappresenta 
 
 - **Core ecosystem:** https://github.com/MyZubster-Ecosystem/myzubster
 - **Visual canon:** https://github.com/MyZubster-Ecosystem/MyZubster-Visual
+- **Circular economy visuals:** https://github.com/MyZubster-Ecosystem/myzubster/tree/main/docs/visuals
 - **Comic universe:** https://github.com/MyZubster-Ecosystem/myzubster/blob/main/public/fumetto.html
 - **N4K48 visual profile:** [`docs/N4K48.md`](docs/N4K48.md)
 
@@ -126,7 +162,7 @@ Il collegamento indica appartenenza narrativa e interoperabilità del percorso c
 ## Workflow MyZubster
 
 ```text
-OBSERVE → DOCUMENT → CONNECT → COLLABORATE → VERIFY → PUBLISH → REWARD
+OBSERVE → DOCUMENT → CONNECT → MEASURE → VERIFY → COLLABORATE → PUBLISH → REWARD
 ```
 
 Il principio resta semplice: **visual e storytelling raccontano il percorso; codice, test, commit ed evidenze dimostrano ciò che è realmente stato completato.**
@@ -140,11 +176,7 @@ docker compose up --build -d
 docker compose ps
 ```
 
-Quando il container è `healthy`, apri:
-
-- `http://localhost:5000/api/observations`
-
-In Docker l'API viene eseguita con Gunicorn. Docker invia `SIGTERM` e concede 15 secondi al processo per completare uno shutdown pulito.
+Quando il container è `healthy`, apri `http://localhost:5000/api/observations`.
 
 Prova la creazione di un'osservazione:
 
@@ -154,42 +186,11 @@ curl -X POST http://localhost:5000/api/observation \
   -d '{"description":"Prova Docker","latitude":44.0678,"longitude":12.5695}'
 ```
 
-Controlla i log:
-
-```bash
-docker compose logs -f api
-```
-
-I dati sono conservati nel volume Docker `observations-data` e rimangono disponibili dopo il riavvio dei container.
-
-```bash
-# verifica il riavvio
-docker compose restart api
-docker compose ps
-
-# arresta senza cancellare i dati
-docker compose down
-
-# verifica che non rimangano container attivi o terminati forzatamente
-docker compose ps -a
-
-# riavvia
-docker compose up -d
-```
-
-Lo stop atteso è pulito. Se compare ancora `Exited (137)`, raccogli:
-
-```bash
-docker compose ps -a
-docker compose logs --tail 100 api
-docker inspect myzubster-mvp-api-1
-```
-
-> Non usare `docker compose down -v` se vuoi conservare le osservazioni: l'opzione `-v` elimina anche il volume dei dati.
+I dati sono conservati nel volume Docker `observations-data`. Non usare `docker compose down -v` se vuoi conservarli.
 
 ## AI locale e RAG
 
-Lo stack include Ollama sul computer host, Qdrant e Open WebUI. Prima dell'avvio scarica sia il modello conversazionale sia il modello di embedding:
+Lo stack include Ollama sul computer host, Qdrant e Open WebUI.
 
 ```powershell
 ollama pull mistral
@@ -204,31 +205,7 @@ Servizi locali:
 - Qdrant: `http://localhost:6333/dashboard`
 - Ollama: `http://localhost:11434`
 
-Crea un'osservazione e interroga l'endpoint RAG:
-
-```powershell
-Invoke-RestMethod -Method Post -Uri "http://localhost:5000/api/observation" `
-  -ContentType "application/json" `
-  -Body '{"description":"Imballaggio riciclabile osservato nel marketplace","latitude":44.0678,"longitude":12.5695}'
-
-Invoke-RestMethod -Method Post -Uri "http://localhost:5000/api/ai/ask" `
-  -ContentType "application/json" `
-  -Body '{"question":"Quali osservazioni riguardano la sostenibilità?"}'
-```
-
-L'endpoint genera gli embedding con Ollama, indicizza le osservazioni in Qdrant, recupera le fonti più pertinenti e chiede a Mistral una risposta basata soltanto sul contesto recuperato.
-
-## Avvio senza Docker
-
-```bash
-python -m venv .venv
-# Windows PowerShell: .venv\Scripts\Activate.ps1
-# macOS/Linux: source .venv/bin/activate
-python -m pip install -r requirements.txt
-python src/api/server.py
-```
-
-L'avvio diretto con `python src/api/server.py` usa il server Flask soltanto per lo sviluppo locale. Il container usa Gunicorn.
+L'endpoint `/api/ai/ask` genera embedding con Ollama, indicizza le osservazioni in Qdrant, recupera le fonti pertinenti e chiede al modello locale una risposta basata sul contesto recuperato.
 
 ## Test automatici
 
@@ -239,7 +216,7 @@ python -m pytest -v
 
 ## Identità N4K48
 
-La scheda estesa e visuale di N4K48 è in [`docs/N4K48.md`](docs/N4K48.md).
+La scheda estesa e visuale, compreso il collegamento **Cyberpunk × Circular Economy**, è in [`docs/N4K48.md`](docs/N4K48.md).
 
 ## Contribuire
 
