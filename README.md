@@ -27,6 +27,50 @@
 > **Circular economy connection:** visual/concept + evidence-first path  
 > **Repository status:** MVP in sviluppo e validazione, non production-ready
 
+## N4K48 Project Planner AI/Zorgax
+
+**Build and publish a digital product in seven days with an AI guide that organizes the work, identifies mistakes and recommends the next action.**
+
+N4K48 Project Planner is an experimental product-planning assistant developed as part of the MyZubster journey. It is designed for people who want to create a digital product but struggle with too many steps, unclear priorities, deadlines and mistakes discovered too late.
+
+The planner helps users:
+
+- define one concrete objective;
+- divide the objective into manageable activities;
+- understand what to do next;
+- identify missing or incorrect steps;
+- monitor deadlines and progress;
+- document completed work and supporting evidence;
+- prepare a product for publication.
+
+Zorgax represents the AI guidance layer. Its role is to assist with planning, analysis and error detection while keeping important decisions under human control.
+
+### Seven-day outcome
+
+> Can an AI-guided project planner help someone produce a concrete and verifiable result within seven days?
+
+### Current status
+
+- Product idea defined
+- Public GitHub documentation available
+- N4K48 identity and visual profile published
+- MyZubster authenticated flow tested
+- 22 automated tests passed
+- First public DEV.to article published
+- Seven-day product test in progress
+- User validation still partial
+- Public production release not yet available
+
+### Project links
+
+- [GitHub profile](https://github.com/nicolaususnicola-lgtm)
+- [MyZubster repository](https://github.com/nicolaususnicola-lgtm/myzubster)
+- [Independent MVP](https://github.com/nicolaususnicola-lgtm/myzubster-mvp)
+- [Public roadmap](https://github.com/nicolaususnicola-lgtm/myzubster/blob/main/ROADMAP_N4K48_METAVERSE.md)
+- [DEV.to article](https://dev.to/n4k48/building-n4k48-my-journey-with-myzubster-ai-and-neon-plaza-3nbp)
+
+This is an experimental MVP under development. Documentation, visuals and local test results do not by themselves demonstrate production deployment, commercial adoption, external payments or third-party endorsement.
+
 ## N4K48 × Cyberpunk × Economia Circolare
 
 N4K48 collega il percorso tecnico di Nicola al linguaggio visuale cyberpunk di MyZubster e a un modello di economia circolare basato su osservazioni, documentazione ed evidenze. Il collegamento è progettuale e narrativo: **non attribuisce automaticamente risultati ambientali, accreditation o reward non verificati**.
