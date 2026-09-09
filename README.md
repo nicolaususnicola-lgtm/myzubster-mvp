@@ -27,6 +27,18 @@
 > **Circular economy connection:** visual/concept + evidence-first path  
 > **Repository status:** MVP in sviluppo e validazione, non production-ready
 
+## Nicola Comics × MyZubster
+
+**Tre tavole pubblicate:** il percorso di N4K48 dalla propria idea software allo sviluppo e alla visione del metaverso.
+
+[**Apri la galleria completa**](docs/n4k48-comics/README.md) · [Avanzamento del progetto](docs/n4k48-comics/ROADMAP.md)
+
+1. [Dall’idea software al metaverso](docs/n4k48-comics/01-dall-idea-al-metaverso.png)
+2. [Il software prende forma](docs/n4k48-comics/02-il-software-prende-forma.png)
+3. [Verso Neon Plaza](docs/n4k48-comics/03-verso-neon-plaza.png)
+
+Visual realizzate con assistenza AI e con le sembianze N4K48 scelte da Nicola. Le scene raccontano il progetto; gli ambienti futuri restano concept in sviluppo.
+
 ## N4K48 Project Planner AI/Zorgax
 
 **Build and publish a digital product in seven days with an AI guide that organizes the work, identifies mistakes and recommends the next action.**
