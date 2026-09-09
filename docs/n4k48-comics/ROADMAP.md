@@ -31,6 +31,17 @@ Raccontare con le sembianze N4K48 scelte da Nicola il proprio percorso: portare 
 - [ ] Valutare la pubblicazione su MyZubster e il percorso Marketplace.
 - [ ] Se richiesto, eseguire il percorso NFT e verificarne le prove on-chain: nessun mint risulta completato da questo lavoro.
 
+## Decisione di revisione — 9 settembre 2026
+
+- [x] Tavola 01 selezionata provvisoriamente come candidata NFT.
+- [x] Commit e Git blob SHA registrati nel [registro di provenienza e diritti](PROVENANCE.md).
+- [x] Tutte le tavole collegate al pilot come prototipi narrativi.
+- [ ] Dichiarazione di Nicola su strumento AI, prompt, input, riferimenti e autorizzazioni.
+- [ ] Revisione visuale e dei diritti completata.
+- [ ] Autorizzazione separata per uso commerciale o mint.
+
+**Stato:** `NFT CANDIDATE — RIGHTS REVIEW PENDING`. Nessun mint è autorizzato finché i controlli mancanti non sono completati.
+
 ## Collegamento alla roadmap condivisa
 
 La roadmap indicata nell'email è [MyZubster-Ecosystem/myzubster #1052](https://github.com/MyZubster-Ecosystem/myzubster/issues/1052). Al momento dell'aggiornamento il collegamento GitHub ha restituito 404: questo documento registra l'avanzamento nel repository personale, senza dichiarare aggiornata l'issue esterna.
