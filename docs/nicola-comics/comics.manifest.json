@@ -1,0 +1,68 @@
+{
+  "project": {
+    "id": "nicola-comics-myzubster",
+    "name": "Nicola Comics × MyZubster",
+    "status": "PROTOTYPE",
+    "owner": "Nicola",
+    "source_repo": "nicolaususnicola-lgtm/myzubster-mvp"
+  },
+  "comics": [
+    {
+      "comic_id": "nicola-comic-001",
+      "title": "TBD",
+      "series": "TBD",
+      "episode": 1,
+      "author": "Nicola",
+      "description": "TBD",
+      "asset_path": null,
+      "source_hash": null,
+      "created_at": null,
+      "rights_status": "TO_VERIFY",
+      "nft_status": "NFT_CANDIDATE",
+      "network": null,
+      "contract_address": null,
+      "token_id": null,
+      "transaction_hash": null,
+      "metadata_uri": null,
+      "public_url": null
+    },
+    {
+      "comic_id": "nicola-comic-002",
+      "title": "TBD",
+      "series": "TBD",
+      "episode": 2,
+      "author": "Nicola",
+      "description": "TBD",
+      "asset_path": null,
+      "source_hash": null,
+      "created_at": null,
+      "rights_status": "TO_VERIFY",
+      "nft_status": "NOT_SELECTED",
+      "network": null,
+      "contract_address": null,
+      "token_id": null,
+      "transaction_hash": null,
+      "metadata_uri": null,
+      "public_url": null
+    },
+    {
+      "comic_id": "nicola-comic-003",
+      "title": "TBD",
+      "series": "TBD",
+      "episode": 3,
+      "author": "Nicola",
+      "description": "TBD",
+      "asset_path": null,
+      "source_hash": null,
+      "created_at": null,
+      "rights_status": "TO_VERIFY",
+      "nft_status": "NOT_SELECTED",
+      "network": null,
+      "contract_address": null,
+      "token_id": null,
+      "transaction_hash": null,
+      "metadata_uri": null,
+      "public_url": null
+    }
+  ]
+}
