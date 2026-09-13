@@ -6,6 +6,8 @@ Tre tavole narrative sul percorso di N4K48: idea software, sviluppo e visione de
 
 ![Dall’idea software al metaverso](01-dall-idea-al-metaverso.png)
 
+[Consulta la scheda del candidato NFT 01](NFT-CANDIDATE-01.md).
+
 ## 02 — Il software prende forma
 
 ![Il software prende forma](02-il-software-prende-forma.png)
