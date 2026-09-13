@@ -1,6 +1,6 @@
 # Nicola Comics × MyZubster — Avanzamento
 
-Aggiornamento: 9 settembre 2026.
+Aggiornamento: 13 settembre 2026.
 
 ## Idea di Nicola
 
@@ -13,10 +13,12 @@ Raccontare con le sembianze N4K48 scelte da Nicola il proprio percorso: portare 
 - [x] Creare e pubblicare tre tavole nel repository.
 - [x] Pubblicare una galleria Markdown su GitHub.
 - [x] Collegare la galleria alla pagina principale, alla scheda N4K48 e al profilo GitHub.
+- [x] Registrare la tavola 01 come candidato NFT proposto, senza autorizzare il mint.
+- [x] Preparare la scheda preliminare di provenienza e diritti.
 
 ## Tavole pubblicate
 
-1. [Dall’idea software al metaverso](01-dall-idea-al-metaverso.png)
+1. [Dall’idea software al metaverso](01-dall-idea-al-metaverso.png) — [scheda candidato NFT](NFT-CANDIDATE-01.md)
 2. [Il software prende forma](02-il-software-prende-forma.png)
 3. [Verso Neon Plaza](03-verso-neon-plaza.png)
 
@@ -24,15 +26,19 @@ Raccontare con le sembianze N4K48 scelte da Nicola il proprio percorso: portare 
 
 ## Prossimi passi
 
-- [ ] Scegliere con Nicola la tavola candidata NFT.
+- [ ] Nicola completa e conferma i campi TO_CONFIRM della scheda candidato.
 - [ ] Documentare provenienza e autorizzazioni degli elementi visivi per l'uso previsto, inclusi eventuali materiali MyZubster esterni.
 - [ ] Collegare le tavole al catalogo del pilot Nicola Comics, dopo verifica della sua struttura.
 - [ ] Integrare e verificare il percorso Zorgax e raccogliere il feedback di Nicola.
 - [ ] Valutare la pubblicazione su MyZubster e il percorso Marketplace.
-- [ ] Se richiesto, eseguire il percorso NFT e verificarne le prove on-chain: nessun mint risulta completato da questo lavoro.
+- [ ] Solo dopo approvazione esplicita, valutare il percorso NFT e registrarvi eventuali prove on-chain.
+
+## Stato NFT
+
+La tavola 01 è il candidato proposto da Nicola. La scheda è pronta per la verifica dei diritti, ma **non è pronta per il mint**. Non risultano blockchain, wallet, contratto, token ID o transazione.
 
 ## Collegamento alla roadmap condivisa
 
-La roadmap indicata nell'email è [MyZubster-Ecosystem/myzubster #1052](https://github.com/MyZubster-Ecosystem/myzubster/issues/1052). Al momento dell'aggiornamento il collegamento GitHub ha restituito 404: questo documento registra l'avanzamento nel repository personale, senza dichiarare aggiornata l'issue esterna.
+La roadmap indicata nell'email è [MyZubster-Ecosystem/myzubster #1052](https://github.com/MyZubster-Ecosystem/myzubster/issues/1052). Al momento dell'aggiornamento precedente il collegamento GitHub aveva restituito 404: questo documento registra l'avanzamento nel repository personale, senza dichiarare aggiornata l'issue esterna.
 
 Le tavole sono illustrazioni narrative, non schermate del software. Vedere le note della [galleria](README.md) per il contesto delle prove locali e delle funzioni ancora da sviluppare.
