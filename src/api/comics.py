@@ -1,6 +1,7 @@
 """Read-only catalog adapter for the Nicola Comics pilot."""
 
 import json
+import os
 from pathlib import Path
 
 from flask import Blueprint, current_app, jsonify, request
@@ -9,6 +10,20 @@ from flask import Blueprint, current_app, jsonify, request
 comics_api = Blueprint("comics", __name__)
 MANIFEST = Path(__file__).resolve().parents[2] / "docs/nicola-comics/comics.manifest.json"
 GALLERY_URL = "https://github.com/nicolaususnicola-lgtm/myzubster-mvp/blob/main/docs/nicola-comics/GALLERY.md"
+
+
+def pilot_base_url():
+    """Optional public base URL for absolute API links; localhost is never assumed."""
+    value = os.getenv("NICOLA_COMICS_BASE_URL", "").strip().rstrip("/")
+    if value and not value.startswith(("https://", "http://")):
+        current_app.logger.warning("Ignoring invalid NICOLA_COMICS_BASE_URL")
+        return ""
+    return value
+
+
+def api_url(path):
+    base = pilot_base_url()
+    return f"{base}{path}" if base else path
 
 
 def load_catalog():
@@ -30,7 +45,8 @@ def catalog_error():
 
 
 def public_entry(entry):
-    return {**entry, "detail_url": "/api/comics/" + entry["comic_id"]}
+    path = "/api/comics/" + entry["comic_id"]
+    return {**entry, "detail_url": api_url(path)}
 
 
 @comics_api.get("/api/comics")
@@ -43,7 +59,8 @@ def list_comics():
     if request.args.get("include_references") != "true":
         entries = [c for c in entries if c.get("pilot_relationship") == "CREATED_FOR_NICOLA_PILOT"]
     return jsonify({"project": data.get("project"), "count": len(entries),
-                    "comics": [public_entry(c) for c in entries], "gallery_url": GALLERY_URL})
+                    "comics": [public_entry(c) for c in entries], "gallery_url": GALLERY_URL,
+                    "api_base_url": pilot_base_url() or None})
 
 
 @comics_api.get("/api/comics/<comic_id>")
@@ -91,7 +108,7 @@ def answer_catalog(data):
         answer = "\n".join(f"{c['comic_id']} — {c['title']} | diritti: {c.get('rights_status', 'TO_VERIFY')} | NFT: {c.get('nft_status', 'NOT_SELECTED')}\n{c.get('public_url', '')}" for c in selected)
     return jsonify({"answer": answer, "source": "nicola-comics-catalog", "mode": "catalog_adapter",
                     "action": action, "sources": [public_entry(c) for c in selected],
-                    "gallery_url": GALLERY_URL,
+                    "gallery_url": GALLERY_URL, "api_base_url": pilot_base_url() or None,
                     "notice": "NFT_CANDIDATE indica una proposta da valutare, non una prova di mint. Il collegamento al Zorgax pubblico resta da verificare."})
 
 
