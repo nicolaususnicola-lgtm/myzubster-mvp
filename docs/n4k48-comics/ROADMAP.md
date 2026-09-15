@@ -28,7 +28,8 @@ Raccontare con le sembianze N4K48 scelte da Nicola il proprio percorso: portare 
 - [ ] Confermare la selezione finale dopo la verifica dei diritti.
 - [ ] Documentare provenienza e autorizzazioni degli elementi visivi per l'uso previsto, inclusi eventuali materiali MyZubster esterni.
 - [x] Collegare le tre tavole al [catalogo del pilot Nicola Comics](../nicola-comics/GALLERY.md), con [manifest](../nicola-comics/comics.manifest.json) e schede individuali.
-- [ ] Integrare e verificare il percorso Zorgax e raccogliere il feedback di Nicola.
+- [x] Implementare e verificare l'adapter locale del catalogo: galleria, schede, candidata e prossimi passi.
+- [ ] Configurare il collegamento sul Zorgax pubblico e raccogliere il feedback di Nicola.
 - [ ] Valutare la pubblicazione su MyZubster e il percorso Marketplace.
 - [ ] Se richiesto, eseguire il percorso NFT e verificarne le prove on-chain: nessun mint risulta completato da questo lavoro.
 
@@ -40,4 +41,12 @@ Le tavole sono illustrazioni narrative, non schermate del software. Vedere le no
 
 ## Catalogo — 15 settembre 2026
 
-Tre nuove schede `n4k48-comic-001`–`003` con hash Git dei file pubblicati e provenienza AI dichiarata. I tre riferimenti preesistenti restano nel manifest con i loro ID e attribuzione da confermare. Solo `n4k48-comic-001` è candidata proposta; nessuna opera è marcata come mintata. L’integrazione con Zorgax resta da implementare/verificare.
+Tre nuove schede `n4k48-comic-001`–`003` con hash Git dei file pubblicati e provenienza AI dichiarata. I tre riferimenti preesistenti restano nel manifest con i loro ID e attribuzione da confermare. Solo `n4k48-comic-001` è candidata proposta; nessuna opera è marcata come mintata.
+
+## Adapter Zorgax — 15 settembre 2026
+
+Implementato nel MVP il percorso in sola lettura `POST /api/zorgax/ask` → catalogo → scheda → candidata proposta, disponibile anche tramite `POST /api/ai/ask` con topic `nicola-comics`.
+
+Verifica locale: **19 test superati** (`tests` e `test_observation_e2e.py`), incluse compatibilità del flusso AI esistente e corrispondenza degli hash delle immagini. Verificato anche il percorso HTTP su server locale. Nessuna distribuzione o prova del Zorgax pubblico è stata eseguita.
+
+[Istruzioni di prova e collegamento al servizio pubblico](../nicola-comics/ZORGAX.md).

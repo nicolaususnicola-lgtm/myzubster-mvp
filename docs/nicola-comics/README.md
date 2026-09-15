@@ -42,4 +42,4 @@ Tre nuove tavole N4K48 sono registrate nel catalogo, con provenienza AI dichiara
 - [Manifest del catalogo](comics.manifest.json)
 - [Roadmap operativa](https://github.com/nicolaususnicola-lgtm/myzubster-mvp/blob/main/docs/n4k48-comics/ROADMAP.md)
 
-Il catalogo è documentale. L’integrazione runtime con Zorgax e Marketplace non è ancora verificata.
+Il catalogo è consultabile tramite un adapter locale in sola lettura, verificato con test automatici e chiamate HTTP. [Prova il percorso e consulta il contratto per Zorgax](ZORGAX.md). Il collegamento al Zorgax pubblico e a Marketplace resta da configurare e verificare.

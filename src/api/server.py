@@ -10,9 +10,11 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspa
 
 from persistence_helper import load_observations, save_observations
 from src.core.observation import Observation
+from src.api.comics import comics_api, answer_catalog
 
 
 app = Flask(__name__)
+app.register_blueprint(comics_api)
 
 OLLAMA_BASE_URL = os.environ.get("OLLAMA_BASE_URL", "http://host.docker.internal:11434").rstrip("/")
 OLLAMA_MODEL = os.environ.get("OLLAMA_MODEL", "mistral:latest")
@@ -200,6 +202,9 @@ def ask_ai():
     data = request.get_json(silent=True)
     if not isinstance(data, dict):
         return jsonify({"error": "Corpo JSON obbligatorio"}), 400
+
+    if data.get("topic") == "nicola-comics":
+        return answer_catalog(data)
 
     question = data.get("question")
     if not isinstance(question, str) or not question.strip():
