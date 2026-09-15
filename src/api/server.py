@@ -3,10 +3,11 @@ import sys
 from urllib.parse import quote
 
 import requests
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, PROJECT_ROOT)
 
 from persistence_helper import load_observations, save_observations
 from src.core.observation import Observation
@@ -24,6 +25,11 @@ QDRANT_COLLECTION = os.environ.get("QDRANT_COLLECTION", "myzubster")
 AI_REQUEST_TIMEOUT = float(os.environ.get("AI_REQUEST_TIMEOUT", "120"))
 AI_CONTEXT_LIMIT = int(os.environ.get("AI_CONTEXT_LIMIT", "5"))
 AI_MAX_QUESTION_LENGTH = int(os.environ.get("AI_MAX_QUESTION_LENGTH", "2000"))
+
+
+@app.route("/", methods=["GET"])
+def landing_page():
+    return send_from_directory(PROJECT_ROOT, "index.html")
 
 
 def _request_json(method, url, **kwargs):
