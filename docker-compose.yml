@@ -16,6 +16,7 @@ services:
       QDRANT_COLLECTION: "myzubster"
       AI_REQUEST_TIMEOUT: "120"
       AI_CONTEXT_LIMIT: "5"
+      NICOLA_COMICS_BASE_URL: "${NICOLA_COMICS_BASE_URL:-}"
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:
