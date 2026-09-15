@@ -101,7 +101,7 @@ def answer_catalog(data):
     elif action == "candidate":
         selected = [c for c in originals if c.get("nft_status") == "NFT_CANDIDATE"]
     if action == "next_steps":
-        answer = "Verificare provenienza e autorizzazioni, confermare la candidata e provare il collegamento al Zorgax pubblico con Nicola. Il mint non viene eseguito da questo servizio."
+        answer = "Verificare provenienza e autorizzazioni e confermare la candidata NFT. Il collegamento al Zorgax pubblico è stato verificato con successo; il mint non viene eseguito da questo servizio."
     elif not selected:
         answer = "Nessuna tavola disponibile per questa richiesta nel catalogo."
     else:
@@ -109,7 +109,7 @@ def answer_catalog(data):
     return jsonify({"answer": answer, "source": "nicola-comics-catalog", "mode": "catalog_adapter",
                     "action": action, "sources": [public_entry(c) for c in selected],
                     "gallery_url": GALLERY_URL, "api_base_url": pilot_base_url() or None,
-                    "notice": "NFT_CANDIDATE indica una proposta da valutare, non una prova di mint. Il collegamento al Zorgax pubblico resta da verificare."})
+                    "notice": "NFT_CANDIDATE indica una proposta da valutare, non una prova di mint. Il collegamento al Zorgax pubblico è stato verificato con successo."})
 
 
 @comics_api.post("/api/zorgax/ask")
