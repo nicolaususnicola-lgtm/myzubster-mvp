@@ -41,7 +41,7 @@ jobs:
       
       - name: Run tests
         run: |
-          python -m pytest test_observation_e2e.py test_api.py test_full.py test_get.py test_obs2.py -v
+          python -m pytest tests test_observation_e2e.py test_api.py test_full.py test_get.py test_obs2.py -v
       
       - name: Verify Python syntax
         run: |
@@ -71,3 +71,9 @@ jobs:
             --header 'Content-Type: application/json' \
             --data '{"description":"CI Docker","latitude":44.0678,"longitude":12.5695}'
           curl --fail --silent http://127.0.0.1:5001/api/observations | grep 'CI Docker'
+          curl --fail --silent http://127.0.0.1:5001/api/comics > /tmp/comics.json
+          python -c "import json; d=json.load(open('/tmp/comics.json')); assert d['count']==3; assert {c['comic_id'] for c in d['comics']} == {'n4k48-comic-001','n4k48-comic-002','n4k48-comic-003'}"
+          curl --fail --silent --request POST http://127.0.0.1:5001/api/zorgax/ask \
+            --header 'Content-Type: application/json' \
+            --data '{"question":"Quale candidata?","action":"candidate"}' > /tmp/candidate.json
+          python -c "import json; d=json.load(open('/tmp/candidate.json')); assert len(d['sources'])==1; c=d['sources'][0]; assert c['comic_id']=='n4k48-comic-001'; assert c['transaction_hash'] is None"
