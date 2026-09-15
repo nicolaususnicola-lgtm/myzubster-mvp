@@ -1,6 +1,6 @@
 # Nicola Comics × MyZubster — Avanzamento
 
-Aggiornamento: 9 settembre 2026.
+Aggiornamento: 15 settembre 2026.
 
 ## Idea di Nicola
 
@@ -24,9 +24,10 @@ Raccontare con le sembianze N4K48 scelte da Nicola il proprio percorso: portare 
 
 ## Prossimi passi
 
-- [ ] Scegliere con Nicola la tavola candidata NFT.
+- [x] Registrare la tavola 01 come candidata proposta, comunicata a Daniel il 9 settembre.
+- [ ] Confermare la selezione finale dopo la verifica dei diritti.
 - [ ] Documentare provenienza e autorizzazioni degli elementi visivi per l'uso previsto, inclusi eventuali materiali MyZubster esterni.
-- [ ] Collegare le tavole al catalogo del pilot Nicola Comics, dopo verifica della sua struttura.
+- [x] Collegare le tre tavole al [catalogo del pilot Nicola Comics](../nicola-comics/GALLERY.md), con [manifest](../nicola-comics/comics.manifest.json) e schede individuali.
 - [ ] Integrare e verificare il percorso Zorgax e raccogliere il feedback di Nicola.
 - [ ] Valutare la pubblicazione su MyZubster e il percorso Marketplace.
 - [ ] Se richiesto, eseguire il percorso NFT e verificarne le prove on-chain: nessun mint risulta completato da questo lavoro.
@@ -36,3 +37,7 @@ Raccontare con le sembianze N4K48 scelte da Nicola il proprio percorso: portare 
 La roadmap indicata nell'email è [MyZubster-Ecosystem/myzubster #1052](https://github.com/MyZubster-Ecosystem/myzubster/issues/1052). Al momento dell'aggiornamento il collegamento GitHub ha restituito 404: questo documento registra l'avanzamento nel repository personale, senza dichiarare aggiornata l'issue esterna.
 
 Le tavole sono illustrazioni narrative, non schermate del software. Vedere le note della [galleria](README.md) per il contesto delle prove locali e delle funzioni ancora da sviluppare.
+
+## Catalogo — 15 settembre 2026
+
+Tre nuove schede `n4k48-comic-001`–`003` con hash Git dei file pubblicati e provenienza AI dichiarata. I tre riferimenti preesistenti restano nel manifest con i loro ID e attribuzione da confermare. Solo `n4k48-comic-001` è candidata proposta; nessuna opera è marcata come mintata. L’integrazione con Zorgax resta da implementare/verificare.
