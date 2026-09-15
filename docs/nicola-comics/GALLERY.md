@@ -1,88 +1,42 @@
-# Nicola Comics Gallery
+# Nicola Comics × MyZubster — Catalogo
 
-**Status:** PROTOTIPO / ASSET REALI COLLEGATI / ATTRIBUZIONE DA VERIFICARE
+Aggiornato il 15 settembre 2026. Stato: **PROTOTYPE**.
 
-Questa pagina raccoglie asset reali già presenti nell'ecosistema MyZubster e li collega al pilot **Nicola Comics × MyZubster** come riferimenti di lavoro. Il collegamento al pilot **non significa che Nicola ne sia automaticamente autore o titolare dei diritti**.
+## Le tre tavole N4K48
 
-## Regole della galleria
+### 1. Dall’idea software al metaverso
 
-Ogni fumetto deve avere:
+[![Dall’idea software al metaverso](https://raw.githubusercontent.com/nicolaususnicola-lgtm/myzubster-mvp/f853710e24c305cb292b271c0d37696147e35239/docs/n4k48-comics/01-dall-idea-al-metaverso.png)](https://github.com/nicolaususnicola-lgtm/myzubster-mvp/blob/f853710e24c305cb292b271c0d37696147e35239/docs/n4k48-comics/01-dall-idea-al-metaverso.png)
 
-- `comic_id`
-- titolo
-- serie/episodio
-- autore o stato `TO_CONFIRM`
-- descrizione
-- file o URL dell'opera
-- provenienza/hash
-- stato diritti
-- stato NFT
-- eventuale network/contract/token/transaction hash solo se verificati
+Nicola porta la propria idea software nell’ecosistema MyZubster, dall’ideazione alla visione di Neon Plaza.
 
-## Fumetti collegati al pilot
+- Scheda: [n4k48-comic-001](cards/n4k48-comic-001.md)
+- Stato NFT: `NFT_CANDIDATE` — proposta da valutare
 
-### Comic 01 — MyZubster Comic 01 — Origine: La città come organismo
+### 2. Il software prende forma
 
-**Stato:** `NFT_CANDIDATE`  
-**Autore:** `TO_CONFIRM`  
-**Ruolo nel pilot:** riferimento visuale reale per il primo proof  
-**Provenienza:** `MyZubster-Ecosystem/myzubster`  
-**Git blob SHA:** `d6122bd7c67342aa59aee7399e32e7e2fbecff50`  
-**Diritti:** `TO_VERIFY`  
-**NFT:** non mintato
+[![Il software prende forma](https://raw.githubusercontent.com/nicolaususnicola-lgtm/myzubster-mvp/f853710e24c305cb292b271c0d37696147e35239/docs/n4k48-comics/02-il-software-prende-forma.png)](https://github.com/nicolaususnicola-lgtm/myzubster-mvp/blob/f853710e24c305cb292b271c0d37696147e35239/docs/n4k48-comics/02-il-software-prende-forma.png)
 
-[Apri l'asset su GitHub](https://github.com/MyZubster-Ecosystem/myzubster/blob/main/docs/visuals/drive-import-2026-09-03/MyZubster_Comic_01_Origine_La_Citta_Come_Organismo.png)
+Il percorso di sviluppo: profilo persistente, autenticazione e verifica locale documentata.
 
-### Comic 02 — MyZubster Comic Complete Visual 2026
+- Scheda: [n4k48-comic-002](cards/n4k48-comic-002.md)
+- Stato NFT: `NOT_SELECTED`
 
-**Stato:** `REFERENCE`  
-**Autore:** `TO_CONFIRM`  
-**Ruolo nel pilot:** riferimento per struttura narrativa e scheda opera  
-**Provenienza:** `MyZubster-Ecosystem/myzubster`  
-**Git blob SHA:** `4b93467911acaf4712ec59d22bc3465b23673f03`  
-**Diritti:** `TO_VERIFY`  
-**NFT:** non selezionato
+### 3. Verso Neon Plaza
 
-[Apri l'asset su GitHub](https://github.com/MyZubster-Ecosystem/myzubster/blob/main/docs/visuals/drive-import-2026-09-03/MyZubster_Comic_Complete_Visual_2026.png)
+[![Verso Neon Plaza](https://raw.githubusercontent.com/nicolaususnicola-lgtm/myzubster-mvp/f853710e24c305cb292b271c0d37696147e35239/docs/n4k48-comics/03-verso-neon-plaza.png)](https://github.com/nicolaususnicola-lgtm/myzubster-mvp/blob/f853710e24c305cb292b271c0d37696147e35239/docs/n4k48-comics/03-verso-neon-plaza.png)
 
-### Comic 03 — MyZubster Cyberpunk Visual 03 — Alliance
+La visione futura del progetto: uno spazio virtuale da sviluppare, provare con più sessioni e migliorare con il feedback.
 
-**Stato:** `REFERENCE`  
-**Autore:** `TO_CONFIRM`  
-**Ruolo nel pilot:** riferimento cyberpunk per l'universo Nicola/N4K48  
-**Provenienza:** `MyZubster-Ecosystem/MyZubster-Visual`  
-**Git blob SHA:** `20b8cb32d34a6bfb964040749e9a9cbb917bc991`  
-**Diritti:** `TO_VERIFY`  
-**NFT:** non selezionato
+- Scheda: [n4k48-comic-003](cards/n4k48-comic-003.md)
+- Stato NFT: `NOT_SELECTED`
 
-[Apri l'asset su GitHub](https://github.com/MyZubster-Ecosystem/MyZubster-Visual/blob/main/assets/comic/MyZubster-Cyberpunk-Visual-03-Alliance.png)
+## Riferimenti precedenti dell’ecosistema
 
-## Prossimo passo con Nicola
+Conservati nel manifest con gli ID originali. Nicola non li ha dichiarati propri; non sono la nuova serie N4K48.
 
-Per trasformare questi riferimenti in opere del suo pilot, Nicola deve confermare almeno:
+- [MyZubster Comic 01 — Origine: La città come organismo](https://github.com/MyZubster-Ecosystem/myzubster/blob/main/docs/visuals/drive-import-2026-09-03/MyZubster_Comic_01_Origine_La_Citta_Come_Organismo.png) — `nicola-comic-001`, autore `TO_CONFIRM`, diritti `TO_VERIFY`, non selezionato.
+- [MyZubster Comic Complete Visual 2026](https://github.com/MyZubster-Ecosystem/myzubster/blob/main/docs/visuals/drive-import-2026-09-03/MyZubster_Comic_Complete_Visual_2026.png) — `nicola-comic-002`, autore `TO_CONFIRM`, diritti `TO_VERIFY`, non selezionato.
+- [MyZubster Cyberpunk Visual 03 — Alliance](https://github.com/MyZubster-Ecosystem/MyZubster-Visual/blob/main/assets/comic/MyZubster-Cyberpunk-Visual-03-Alliance.png) — `nicola-comic-003`, autore `TO_CONFIRM`, diritti `TO_VERIFY`, non selezionato.
 
-1. quali asset vuole usare solo come riferimento;
-2. quali opere sono realmente sue;
-3. il titolo e la descrizione delle proprie opere;
-4. i diritti/autorizzazioni disponibili;
-5. quale sua opera candidare come primo `NFT_CANDIDATE`.
-
-## Percorso utente previsto
-
-**Zorgax → Profilo Nicola → Galleria → Scheda fumetto → Provenienza → verifica diritti → NFT proof → Marketplace**
-
-## Criterio di verifica
-
-Non usare mai `MINTED` finché non esistono almeno:
-
-- network;
-- contract address;
-- token ID;
-- transaction hash verificabile.
-
-## Link
-
-- Profilo pilot: [PROFILE.md](PROFILE.md)
-- Manifest: [comics.manifest.json](comics.manifest.json)
-- Roadmap: https://github.com/MyZubster-Ecosystem/myzubster/issues/1052
-- MyZubster: https://myzubster.com
+[Profilo](PROFILE.md) · [Catalogo JSON](comics.manifest.json) · [Percorso pilot](README.md)

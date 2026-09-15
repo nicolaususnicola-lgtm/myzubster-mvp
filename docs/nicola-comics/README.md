@@ -33,3 +33,13 @@ Build a small software pilot that connects Nicola's comics to MyZubster, Zorgax,
 
 - GitHub issue: https://github.com/MyZubster-Ecosystem/myzubster/issues/1052
 - Linear: MYZ-142
+
+## Avanzamento — 15 settembre 2026
+
+Tre nuove tavole N4K48 sono registrate nel catalogo, con provenienza AI dichiarata e hash dei file pubblicati. La prima è candidata proposta, comunicata a Daniel il 9 settembre; selezione finale, diritti e mint restano da verificare.
+
+- [Galleria e schede](GALLERY.md)
+- [Manifest del catalogo](comics.manifest.json)
+- [Roadmap operativa](https://github.com/nicolaususnicola-lgtm/myzubster-mvp/blob/main/docs/n4k48-comics/ROADMAP.md)
+
+Il catalogo è documentale. L’integrazione runtime con Zorgax e Marketplace non è ancora verificata.

@@ -50,3 +50,11 @@ Prompt iniziale consigliato:
 > Zorgax, voglio continuare Nicola Comics × MyZubster. Guidami dal primo passo.
 
 Zorgax può aiutare a raccogliere informazioni, organizzare attività e proporre il passo successivo. Pubblicazioni, wallet, mint e modifiche tecniche restano soggetti a conferma e verifica umana.
+
+## Serie N4K48 pubblicata
+
+Tema scelto da Nicola: portare la propria idea software nel metaverso MyZubster. Tre tavole realizzate il 9 settembre 2026 con assistenza AI, mantenendo le sembianze N4K48 scelte.
+
+[Galleria e schede delle tre tavole](GALLERY.md)
+
+Prima candidata proposta: `n4k48-comic-001`, da valutare. Stato del progetto: `PROTOTYPE`; nessuna prova di mint registrata.
