@@ -32,6 +32,13 @@ def landing_page():
     return send_from_directory(PROJECT_ROOT, "index.html")
 
 
+@app.route("/docs/n4k48-comics/<path:filename>", methods=["GET"])
+def nico_comics_artwork(filename):
+    """Serve only the public N4K48 comic assets used by the landing page."""
+    comics_dir = os.path.join(PROJECT_ROOT, "docs", "n4k48-comics")
+    return send_from_directory(comics_dir, filename)
+
+
 def _request_json(method, url, **kwargs):
     response = requests.request(method, url, timeout=AI_REQUEST_TIMEOUT, **kwargs)
     response.raise_for_status()
