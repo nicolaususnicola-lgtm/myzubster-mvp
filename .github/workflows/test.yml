@@ -77,3 +77,14 @@ jobs:
             --header 'Content-Type: application/json' \
             --data '{"question":"Quale candidata?","action":"candidate"}' > /tmp/candidate.json
           python -c "import json; d=json.load(open('/tmp/candidate.json')); assert len(d['sources'])==1; c=d['sources'][0]; assert c['comic_id']=='n4k48-comic-001'; assert c['transaction_hash'] is None"
+
+      - name: Wait for Render auto-deploy
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: sleep 60
+
+      - name: Verify public Nicola Comics pilot
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        env:
+          NICOLA_COMICS_BASE_URL: https://myzubster-mvp.onrender.com
+          NICOLA_COMICS_TEST_TIMEOUT: "45"
+        run: python scripts/verify_public_pilot.py
