@@ -67,7 +67,7 @@ Zorgax represents the AI guidance layer. Its role is to assist with planning, an
 - Public GitHub documentation available
 - N4K48 identity and visual profile published
 - MyZubster authenticated flow tested
-- 22 automated tests passed
+- 27 automated tests passed
 - First public DEV.to article published
 - Seven-day product test in progress
 - User validation still partial
@@ -188,6 +188,89 @@ Il metaverso qui è una **rappresentazione narrativa / concept**, non una dichia
 5. Collegare le evidenze al percorso di economia circolare quando applicabile.
 6. Sbloccare il passo successivo soltanto sulla base di attività realmente completate.
 
+## What MyZubster Is
+
+MyZubster is an evidence-first platform for turning documented activities and observations into structured, searchable and eventually monetizable digital records.
+
+The current MVP combines a data layer, semantic retrieval and local AI. The longer-term product direction adds a reward ledger, wallet and monetization layer. These stages must not be confused: planned wallet, reward and on-chain capabilities are not yet presented as implemented features.
+
+### Current architecture
+
+```text
+Observation / activity
+        ↓
+Structured record + metadata
+        ↓
+JSON persistence
+        ↓
+Qdrant semantic index
+        ↓
+Relevant evidence
+        ↓
+Authoritative metadata answer ──┐
+                                ├──→ MyZubster response
+RAG context → local LLM ────────┘
+```
+
+The key design rule is **evidence first**:
+
+- structured facts that the system already knows with certainty should be answered deterministically;
+- unstructured questions can use RAG + a local LLM;
+- the LLM should not override authoritative structured metadata;
+- sources returned by the AI API remain visible to the caller.
+
+For example, an observation can carry metadata such as:
+
+```json
+{
+  "status": "RECORDED",
+  "success": true,
+  "paymentRequired": false,
+  "onchainRecorded": false,
+  "handoverId": "...",
+  "method": "HAND_DELIVERY"
+}
+```
+
+If a user asks whether that event was recorded on-chain, the answer is derived from `onchainRecorded`, rather than asking the language model to infer a boolean from prose.
+
+### Product direction
+
+The intended evolution is:
+
+```text
+Documented activity
+        ↓
+Evidence / verification
+        ↓
+Reward rule
+        ↓
+MYZ internal ledger
+        ↓
+User wallet / balance
+        ↓
+Monetization
+        ↓
+Optional future on-chain adapter
+```
+
+The MYZ layer is currently described as an **internal reward and accounting ledger**, not as an external currency. Wallet, reward and on-chain components remain roadmap work until they are implemented and tested in the repository.
+
+### Implemented vs planned
+
+| Area | Status |
+| --- | --- |
+| Observation API and persistence | Implemented |
+| Structured observation metadata | Implemented |
+| Qdrant semantic retrieval | Implemented |
+| Ollama local AI | Implemented |
+| Evidence-first RAG prompting | Implemented |
+| Deterministic answers for authoritative metadata | Implemented |
+| MYZ reward ledger | Planned / roadmap |
+| User wallet | Planned / roadmap |
+| Monetization flows | Planned / roadmap |
+| Optional on-chain adapter | Planned / roadmap |
+
 ## Cosa è già stato completato nel repository
 
 Queste sono componenti tecniche reali già integrate nell'MVP:
@@ -261,7 +344,7 @@ Servizi locali:
 - Qdrant: `http://localhost:6333/dashboard`
 - Ollama: `http://localhost:11434`
 
-L'endpoint `/api/ai/ask` genera embedding con Ollama, indicizza le osservazioni in Qdrant, recupera le fonti pertinenti e chiede al modello locale una risposta basata sul contesto recuperato.
+L'endpoint `/api/ai/ask` genera embedding con Ollama, recupera le osservazioni pertinenti da Qdrant e restituisce una risposta basata sulle evidenze. Per i campi strutturati autorevoli, come `status`, `success`, `paymentRequired` e `onchainRecorded`, la risposta può essere deterministica; per le domande che richiedono sintesi viene usato il modello locale con contesto RAG.
 
 ## Test automatici
 
