@@ -6,7 +6,6 @@ configuration or agreements outside the AI layer.
 """
 
 from dataclasses import asdict, dataclass
-from typing import Optional
 
 
 @dataclass(frozen=True)
@@ -97,3 +96,25 @@ def create_nicola_nft_event(
         asset_type="NFT",
         creator_id="nicola",
     )
+
+
+
+def calculate_balances(events: list[dict]) -> dict[str, dict[str, float]]:
+    """Aggregate recorded revenue allocations by participant and currency."""
+    balances: dict[str, dict[str, float]] = {}
+    for event in events:
+        if event.get("event_type") != "REVENUE":
+            continue
+        currency = str(event.get("currency", "")).strip()
+        if not currency:
+            continue
+        for participant_id, amount in (event.get("calculated_amounts") or {}).items():
+            participant = balances.setdefault(
+                str(participant_id),
+                {},
+            )
+            participant[currency] = round(
+                participant.get(currency, 0.0) + float(amount),
+                2,
+            )
+    return balances
