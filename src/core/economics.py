@@ -6,6 +6,12 @@ configuration or agreements outside the AI layer.
 """
 
 from dataclasses import asdict, dataclass
+from datetime import datetime, timezone
+
+
+def utc_now_iso() -> str:
+    """Return an audit timestamp in UTC using ISO 8601 with a Z suffix."""
+    return datetime.now(timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z")
 
 
 @dataclass(frozen=True)
@@ -28,11 +34,13 @@ class RevenueEvent:
     currency: str
     allocations: tuple[Allocation, ...]
     status: str = "RECORDED"
+    created_at: str | None = None
 
     def to_dict(self):
         return {
             "event_type": "REVENUE",
             **asdict(self),
+            "created_at": self.created_at or utc_now_iso(),
             "allocations": [asdict(item) for item in self.allocations],
         }
 
@@ -44,11 +52,13 @@ class AssetCreatedEvent:
     asset_type: str
     creator_id: str
     provenance_status: str = "RECORDED"
+    created_at: str | None = None
 
     def to_dict(self):
         return {
             "event_type": "ASSET_CREATED",
             **asdict(self),
+            "created_at": self.created_at or utc_now_iso(),
         }
 
 
