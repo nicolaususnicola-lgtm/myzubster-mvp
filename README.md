@@ -44,7 +44,7 @@ The public development snapshot from today's MyZubster/N4K48 collaboration has b
 
 **Commitment SHA-256:** `39ab3a177734b5e3e254657cfe6015100644bcda2fb008cf2561d000669b9e14`
 
-[Read the human evidence record →](knowledge/KNOWLEDGE-TRANSFER-2026-09-18-DANIEL-NICOLA.md) · [Inspect the canonical JSON →](knowledge/KNOWLEDGE-TRANSFER-2026-09-18-DANIEL-NICOLA.json)
+[Read the human evidence record →](knowledge/KNOWLEDGE-TRANSFER-2026-09-18-DANIEL-NICOLA.md) · [Inspect the canonical JSON →](knowledge/KNOWLEDGE-TRANSFER-2026-09-18-DANIEL-NICOLA.json) · [Verify / anchor on Base Sepolia →](https://www.myzubster.com/knowledge-anchor-n4k48)
 
 > The commitment records the public snapshot and source assertion. It does not by itself prove learning, authorship of every idea or scientific validity. Nicola's recipient attestation remains `PENDING` until explicitly confirmed.
 
