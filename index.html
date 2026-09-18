@@ -89,7 +89,11 @@ async function loadBalance(){
     if(!participants.length){container.innerHTML='<div class="metric"><small>Balance</small><strong>Nessun dato</strong></div>';return;}
     container.innerHTML=participants.map(p=>{
       const totals=Object.entries(p.balances||{}).map(([currency,amount])=>'<strong>'+escapeHtml(String(amount))+' '+escapeHtml(currency)+'</strong>').join(" ");
-      return '<div class="metric"><small>'+escapeHtml(p.participant_id)+'</small>'+totals+'</div>';
+      const sources=Object.entries(p.by_source||{}).map(([source,currencies])=>{
+        const values=Object.entries(currencies||{}).map(([currency,amount])=>escapeHtml(String(amount))+" "+escapeHtml(currency)).join(", ");
+        return '<div><span class="tag">'+escapeHtml(source)+'</span> '+values+'</div>';
+      }).join("");
+      return '<div class="metric"><small>'+escapeHtml(p.participant_id)+'</small>'+totals+'<div style="margin-top:10px">'+sources+'</div></div>';
     }).join("");
   }catch(error){container.innerHTML='<div class="metric"><small>Balance</small><strong>Non disponibile</strong></div>';}
 }
