@@ -40,13 +40,13 @@ MyZubster MVP is evolving into an **evidence-first economic and AI platform**.
 
 ### 🔗 Knowledge transfer evidence — 18 September 2026
 
-The public development snapshot from today's MyZubster/N4K48 collaboration has been frozen as a canonical knowledge-transfer manifest and prepared for a Base Sepolia integrity/timestamp anchor.
+The public development snapshot from today's MyZubster/N4K48 collaboration has been frozen as a canonical knowledge-transfer manifest and **confirmed on Base Sepolia** with an independently verified `MATCH`.
 
 **Commitment SHA-256:** `39ab3a177734b5e3e254657cfe6015100644bcda2fb008cf2561d000669b9e14`
 
-[Read the human evidence record →](knowledge/KNOWLEDGE-TRANSFER-2026-09-18-DANIEL-NICOLA.md) · [Inspect the canonical JSON →](knowledge/KNOWLEDGE-TRANSFER-2026-09-18-DANIEL-NICOLA.json) · [Verify / anchor on Base Sepolia →](https://www.myzubster.com/knowledge-anchor-n4k48)
+[Read the human evidence record →](knowledge/KNOWLEDGE-TRANSFER-2026-09-18-DANIEL-NICOLA.md) · [Inspect the canonical JSON →](knowledge/KNOWLEDGE-TRANSFER-2026-09-18-DANIEL-NICOLA.json) · [Verify confirmed Base Sepolia anchor →](https://www.myzubster.com/knowledge-anchor-n4k48) · [BaseScan receipt →](https://sepolia.basescan.org/tx/0xff3c108275625673ad22a886da2df7120ae81b8f0106ec833613513b03c7bc31)
 
-> The commitment records the public snapshot and source assertion. It does not by itself prove learning, authorship of every idea or scientific validity. Nicola's recipient attestation remains `PENDING` until explicitly confirmed.
+> **Anchor status:** `CONFIRMED / MATCH` · block `47000958` · tx `0xff3c1082…7bc31`. The commitment records the public snapshot and source assertion. It does not by itself prove learning, authorship of every idea or scientific validity. Nicola's recipient attestation remains `PENDING` until explicitly confirmed.
 
 
 <p align="center">
