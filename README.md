@@ -244,7 +244,11 @@ The MVP now includes domain primitives for recording economic and asset provenan
 - `calculate_allocations()` derives amounts only from explicit allocation rules.
 - `create_nicola_nft_event()` records an NFT created by Nicola as a creator-provenance event; it does not infer legal ownership or market value.
 
-The next layer is the persistent MYZ ledger and API. It should consume these explicit events rather than infer economic rights from AI output.
+The persistent MYZ ledger API is now implemented. It stores revenue and asset provenance events in the same persistent data volume as MyZubster observations. The API exposes `POST /api/ledger/revenue`, `POST /api/ledger/assets`, and `GET /api/ledger`.
+
+Revenue events calculate participant amounts only from explicit allocation percentages. NFT asset events record creator provenance, including assets created by Nicola, without inferring legal ownership or market value.
+
+
 
 ### Product direction
 
