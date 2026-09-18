@@ -1,6 +1,7 @@
 import json
 import os
 import sys
+import uuid
 from urllib.parse import quote
 
 import requests
@@ -10,7 +11,8 @@ from flask import Flask, jsonify, request, send_from_directory
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, PROJECT_ROOT)
 
-from persistence_helper import load_observations, save_observations
+from persistence_helper import load_ledger, load_observations, save_ledger, save_observations
+from src.core.economics import Allocation, AssetCreatedEvent, RevenueEvent, calculate_allocations, validate_allocations
 from src.core.observation import Observation
 from src.api.comics import comics_api, answer_catalog
 
@@ -236,6 +238,105 @@ def list_observations():
         app.logger.exception("Impossibile leggere le osservazioni")
         return jsonify({"error": f"Persistenza non disponibile: {error}"}), 500
     return jsonify({"count": len(observations), "observations": observations})
+
+
+
+@app.route("/api/ledger/revenue", methods=["POST"])
+def create_revenue_event():
+    data = request.get_json(silent=True)
+    if not isinstance(data, dict):
+        return jsonify({"error": "Corpo JSON obbligatorio"}), 400
+
+    try:
+        amount = float(data["amount"])
+        currency = str(data["currency"]).strip()
+        source = str(data["source"]).strip()
+        allocations_data = data["allocations"]
+    except (KeyError, TypeError, ValueError):
+        return jsonify({"error": "source, amount, currency e allocations sono obbligatori"}), 400
+
+    if not source or not currency or amount < 0 or not isinstance(allocations_data, list):
+        return jsonify({"error": "Dati revenue non validi"}), 400
+
+    try:
+        allocations = tuple(
+            Allocation(
+                participant_id=str(item["participant_id"]).strip(),
+                percentage=float(item["percentage"]),
+            )
+            for item in allocations_data
+        )
+        validate_allocations(allocations)
+        amounts = calculate_allocations(amount, allocations)
+    except (KeyError, TypeError, ValueError) as error:
+        return jsonify({"error": f"Allocazioni non valide: {error}"}), 400
+
+    event = RevenueEvent(
+        event_id=str(data.get("event_id") or uuid.uuid4()),
+        source=source,
+        amount=amount,
+        currency=currency,
+        allocations=allocations,
+        status=str(data.get("status") or "RECORDED"),
+    )
+    record = event.to_dict()
+    record["calculated_amounts"] = amounts
+
+    try:
+        ledger = load_ledger()
+        if any(item.get("event_id") == record["event_id"] for item in ledger):
+            return jsonify({"error": "event_id già presente nel ledger"}), 409
+        ledger.append(record)
+        save_ledger(ledger)
+    except (OSError, ValueError) as error:
+        app.logger.exception("Impossibile salvare il revenue event")
+        return jsonify({"error": f"Ledger non disponibile: {error}"}), 500
+
+    return jsonify(record), 201
+
+
+@app.route("/api/ledger/assets", methods=["POST"])
+def create_asset_event():
+    data = request.get_json(silent=True)
+    if not isinstance(data, dict):
+        return jsonify({"error": "Corpo JSON obbligatorio"}), 400
+
+    asset_id = data.get("asset_id")
+    asset_type = data.get("asset_type")
+    creator_id = data.get("creator_id")
+    if not all(isinstance(value, str) and value.strip() for value in (asset_id, asset_type, creator_id)):
+        return jsonify({"error": "asset_id, asset_type e creator_id sono obbligatori"}), 400
+
+    event = AssetCreatedEvent(
+        event_id=str(data.get("event_id") or uuid.uuid4()),
+        asset_id=asset_id.strip(),
+        asset_type=asset_type.strip(),
+        creator_id=creator_id.strip(),
+        provenance_status=str(data.get("provenance_status") or "RECORDED"),
+    )
+    record = event.to_dict()
+
+    try:
+        ledger = load_ledger()
+        if any(item.get("event_id") == record["event_id"] for item in ledger):
+            return jsonify({"error": "event_id già presente nel ledger"}), 409
+        ledger.append(record)
+        save_ledger(ledger)
+    except (OSError, ValueError) as error:
+        app.logger.exception("Impossibile salvare l'asset event")
+        return jsonify({"error": f"Ledger non disponibile: {error}"}), 500
+
+    return jsonify(record), 201
+
+
+@app.route("/api/ledger", methods=["GET"])
+def list_ledger():
+    try:
+        events = load_ledger()
+    except (OSError, ValueError) as error:
+        app.logger.exception("Impossibile leggere il ledger")
+        return jsonify({"error": f"Ledger non disponibile: {error}"}), 500
+    return jsonify({"count": len(events), "events": events})
 
 
 def _authoritative_metadata_answer(question, context):
