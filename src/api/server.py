@@ -65,23 +65,26 @@ def _ensure_qdrant_collection(vector_size):
     response.raise_for_status()
 
 
-def _index_and_search(question, observations):
+def _index_observations(observations):
     if not observations:
-        return []
+        return 0
 
     points = []
     for index, observation in enumerate(observations):
         description = str(observation.get("description", "")).strip()
         if not description:
             continue
+
         vector = _ollama_embedding(description)
         _ensure_qdrant_collection(len(vector))
+
         point_id = observation.get("id") or index
         if isinstance(point_id, str):
             try:
                 point_id = int(point_id, 16)
             except ValueError:
                 point_id = index
+
         points.append(
             {
                 "id": point_id,
@@ -91,7 +94,7 @@ def _index_and_search(question, observations):
         )
 
     if not points:
-        return []
+        return 0
 
     collection = quote(QDRANT_COLLECTION, safe="")
     _request_json(
@@ -99,8 +102,14 @@ def _index_and_search(question, observations):
         f"{QDRANT_URL}/collections/{collection}/points?wait=true",
         json={"points": points},
     )
+    return len(points)
 
+
+def _search_observations(question):
     question_vector = _ollama_embedding(question)
+    _ensure_qdrant_collection(len(question_vector))
+
+    collection = quote(QDRANT_COLLECTION, safe="")
     result = _request_json(
         "POST",
         f"{QDRANT_URL}/collections/{collection}/points/query",
@@ -110,6 +119,7 @@ def _index_and_search(question, observations):
             "with_payload": True,
         },
     )
+
     matches = result.get("result", {}).get("points", [])
     return [
         match.get("payload", {}).get("observation")
@@ -190,6 +200,14 @@ def create_observation():
         app.logger.exception("Impossibile salvare l'osservazione")
         return jsonify({"error": f"Persistenza non disponibile: {error}"}), 500
 
+    try:
+        _index_observations([observation])
+    except (OSError, ValueError, requests.RequestException) as error:
+        app.logger.exception(
+            "Osservazione salvata ma indicizzazione AI non disponibile: %s",
+            error,
+        )
+
     return jsonify(observation), 201
 
 
@@ -221,8 +239,7 @@ def ask_ai():
         return jsonify({"error": "Domanda troppo lunga"}), 400
 
     try:
-        observations = load_observations()
-        context = _index_and_search(question, observations)
+        context = _search_observations(question)
         answer = _generate_answer(question, context)
     except (OSError, ValueError) as error:
         app.logger.exception("Errore durante la richiesta AI")
