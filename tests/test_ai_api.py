@@ -101,3 +101,51 @@ def test_generate_answer_sends_structured_metadata_to_ollama(request_json):
     assert '"success": true' in prompt
     assert '"paymentRequired": false' in prompt
     assert '"onchainRecorded": false' in prompt
+
+
+@patch("src.api.server.save_ledger")
+@patch("src.api.server.load_ledger", return_value=[])
+def test_create_revenue_event_persists_explicit_allocations(load, save):
+    client = app.test_client()
+    response = client.post(
+        "/api/ledger/revenue",
+        json={
+            "event_id": "rev-api-001",
+            "source": "MYZUBSTER_ONLINE",
+            "amount": 1000,
+            "currency": "EUR",
+            "allocations": [
+                {"participant_id": "daniel", "percentage": 2},
+                {"participant_id": "nicola", "percentage": 98},
+            ],
+        },
+    )
+
+    assert response.status_code == 201
+    event = response.get_json()
+    assert event["event_type"] == "REVENUE"
+    assert event["calculated_amounts"] == {"daniel": 20.0, "nicola": 980.0}
+    save.assert_called_once_with([event])
+
+
+@patch("src.api.server.save_ledger")
+@patch("src.api.server.load_ledger", return_value=[])
+def test_create_nft_asset_event_persists_creator_provenance(load, save):
+    client = app.test_client()
+    response = client.post(
+        "/api/ledger/assets",
+        json={
+            "event_id": "asset-api-001",
+            "asset_id": "n4k48-comic-001",
+            "asset_type": "NFT",
+            "creator_id": "nicola",
+        },
+    )
+
+    assert response.status_code == 201
+    event = response.get_json()
+    assert event["event_type"] == "ASSET_CREATED"
+    assert event["creator_id"] == "nicola"
+    assert event["asset_type"] == "NFT"
+    assert event["provenance_status"] == "RECORDED"
+    save.assert_called_once_with([event])
