@@ -20,7 +20,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 50px;color:var(--muted);f
 </head>
 <body>
 <div class="wrap">
-<header><div class="brand">NICO <b>COMICS</b></div><nav><a href="#fumetti">Fumetti</a><a href="#ledger">MYZ Ledger</a><a href="#progetto">Progetto</a><a href="/api/comics">API</a></nav></header>
+<header><div class="brand">NICO <b>COMICS</b></div><nav><a href="#fumetti">Fumetti</a><a href="#assets">My Assets</a><a href="#revenue">Revenue</a><a href="#ledger">MYZ Ledger</a><a href="#progetto">Progetto</a><a href="/api/comics">API</a></nav></header>
 <main>
 <section class="hero"><div class="eyebrow">N4K48 × MyZubster · Pilot 2026</div><h1>Dall'idea software al <span>metaverso.</span></h1><p>Un piccolo universo a fumetti che racconta la nascita di un progetto: codice, identità digitale, MyZubster e la visione futura di Neon Plaza.</p><div class="actions"><a class="btn primary" href="#fumetti">Leggi le tavole</a><a class="btn" href="#ledger">Apri MYZ Ledger</a></div></section>
 
@@ -29,6 +29,12 @@ footer{border-top:1px solid var(--line);padding:30px 0 50px;color:var(--muted);f
 <article class="card"><a class="cover" target="_blank" rel="noopener" href="https://raw.githubusercontent.com/nicolaususnicola-lgtm/myzubster-mvp/main/docs/n4k48-comics/02-il-software-prende-forma.png"><img src="https://raw.githubusercontent.com/nicolaususnicola-lgtm/myzubster-mvp/main/docs/n4k48-comics/02-il-software-prende-forma.png" alt="Il software prende forma"></a><div class="content"><span class="tag">EPISODIO 02</span><h3>Il software prende forma</h3><p>Profilo persistente, autenticazione e sviluppo: l'idea comincia a diventare un prodotto verificabile.</p><div class="status"><span class="pill">Pilot</span><span class="pill">Diritti: TO_VERIFY</span></div></div></article>
 <article class="card"><a class="cover" target="_blank" rel="noopener" href="https://raw.githubusercontent.com/nicolaususnicola-lgtm/myzubster-mvp/main/docs/n4k48-comics/03-verso-neon-plaza.png"><img src="https://raw.githubusercontent.com/nicolaususnicola-lgtm/myzubster-mvp/main/docs/n4k48-comics/03-verso-neon-plaza.png" alt="Verso Neon Plaza"></a><div class="content"><span class="tag">EPISODIO 03</span><h3>Verso Neon Plaza</h3><p>La visione futura: uno spazio virtuale da sviluppare, provare e migliorare insieme alla community.</p><div class="status"><span class="pill">Concept</span><span class="pill">Diritti: TO_VERIFY</span></div></div></article>
 </div></section>
+
+<section id="assets"><div class="section-head"><h2>My Assets</h2><p>Asset e NFT con creator provenance registrata</p></div>
+<div class="grid" id="asset-cards"><article class="card"><div class="content"><span class="tag">ASSET</span><h3>Caricamento…</h3><p>Recupero degli asset dal ledger.</p></div></article></div></section>
+
+<section id="revenue"><div class="section-head"><h2>Revenue History</h2><p>Eventi economici registrati e allocazioni esplicite</p></div>
+<div class="table-wrap"><table class="ledger-table"><thead><tr><th>Fonte</th><th>Importo</th><th>Allocazioni</th><th>Calcolato</th><th>Stato</th></tr></thead><tbody id="revenue-body"><tr><td colspan="5" class="empty">Caricamento revenue history…</td></tr></tbody></table></div></section>
 
 <section id="ledger"><div class="section-head"><h2>MYZ Ledger</h2><p>Provenienza e contabilità interna</p></div>
 <div class="ledger"><div class="metric"><small>Eventi registrati</small><strong id="event-count">—</strong></div><div class="metric"><small>Revenue events</small><strong id="revenue-count">—</strong></div><div class="metric"><small>Asset / NFT events</small><strong id="asset-count">—</strong></div></div>
@@ -69,7 +75,35 @@ async function loadLedger(){
   }
 }
 function escapeHtml(value){return String(value).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));}
+async function loadAssets(){
+  const container=document.getElementById("asset-cards");
+  try{
+    const response=await fetch("/api/ledger/assets");
+    if(!response.ok) throw new Error("HTTP "+response.status);
+    const data=await response.json();
+    const events=Array.isArray(data.events)?data.events:[];
+    if(!events.length){container.innerHTML='<article class="card"><div class="content"><span class="tag">MY ASSETS</span><h3>Nessun asset registrato</h3><p>Il ledger non contiene ancora eventi ASSET_CREATED.</p></div></article>';return;}
+    container.innerHTML=events.slice().reverse().map(e=>'<article class="card"><div class="content"><span class="tag">'+escapeHtml(e.asset_type)+'</span><h3>'+escapeHtml(e.asset_id)+'</h3><p>Creator: <strong>'+escapeHtml(e.creator_id)+'</strong></p><div class="status"><span class="pill">'+escapeHtml(e.provenance_status||"RECORDED")+'</span><span class="pill">ASSET_CREATED</span></div></div></article>').join("");
+  }catch(error){container.innerHTML='<article class="card"><div class="content"><span class="tag">MY ASSETS</span><h3>Non disponibile</h3><p>Impossibile leggere gli asset.</p></div></article>';}
+}
+async function loadRevenue(){
+  const body=document.getElementById("revenue-body");
+  try{
+    const response=await fetch("/api/ledger/revenue");
+    if(!response.ok) throw new Error("HTTP "+response.status);
+    const data=await response.json();
+    const events=Array.isArray(data.events)?data.events:[];
+    if(!events.length){body.innerHTML='<tr><td colspan="5" class="empty">Nessun revenue event registrato.</td></tr>';return;}
+    body.innerHTML=events.slice().reverse().map(e=>{
+      const allocations=(e.allocations||[]).map(a=>a.participant_id+" "+a.percentage+"%").join(", ");
+      const calculated=Object.entries(e.calculated_amounts||{}).map(([id,amount])=>id+" "+amount+" "+(e.currency||"")).join(", ");
+      return '<tr><td>'+escapeHtml(e.source)+'</td><td>'+escapeHtml(String(e.amount))+" "+escapeHtml(e.currency)+'</td><td>'+escapeHtml(allocations)+'</td><td>'+escapeHtml(calculated)+'</td><td class="ok">'+escapeHtml(e.status||"RECORDED")+'</td></tr>';
+    }).join("");
+  }catch(error){body.innerHTML='<tr><td colspan="5" class="error">Revenue history non disponibile.</td></tr>';}
+}
 loadLedger();
+loadAssets();
+loadRevenue();
 </script>
 </body>
 </html>
