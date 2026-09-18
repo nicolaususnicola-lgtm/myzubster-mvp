@@ -6,6 +6,8 @@ from src.core.economics import (
     create_nicola_nft_event,
     validate_allocations,
     calculate_balances,
+    calculate_balance_breakdown,
+    normalize_revenue_source,
 )
 
 
@@ -91,4 +93,49 @@ def test_balances_are_derived_from_recorded_revenue_events():
     assert calculate_balances(events) == {
         "daniel": {"EUR": 30.0},
         "nicola": {"EUR": 1470.0},
+    }
+
+
+
+def test_revenue_source_is_explicit_and_normalized():
+    assert normalize_revenue_source("zorgax") == "ZORGAX"
+
+
+def test_unknown_revenue_source_is_rejected():
+    try:
+        normalize_revenue_source("OTHER")
+    except ValueError as error:
+        assert "source non valida" in str(error)
+    else:
+        raise AssertionError("Expected unsupported source to be rejected")
+
+
+def test_balance_breakdown_groups_amounts_by_source():
+    events = [
+        {
+            "event_type": "REVENUE",
+            "source": "MYZUBSTER_ONLINE",
+            "currency": "EUR",
+            "calculated_amounts": {"daniel": 20.0, "nicola": 980.0},
+        },
+        {
+            "event_type": "REVENUE",
+            "source": "ZORGAX",
+            "currency": "EUR",
+            "calculated_amounts": {"nicola": 50.0},
+        },
+    ]
+
+    assert calculate_balance_breakdown(events) == {
+        "daniel": {
+            "balances": {"EUR": 20.0},
+            "by_source": {"MYZUBSTER_ONLINE": {"EUR": 20.0}},
+        },
+        "nicola": {
+            "balances": {"EUR": 1030.0},
+            "by_source": {
+                "MYZUBSTER_ONLINE": {"EUR": 980.0},
+                "ZORGAX": {"EUR": 50.0},
+            },
+        },
     }
