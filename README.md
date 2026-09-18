@@ -234,6 +234,18 @@ For example, an observation can carry metadata such as:
 
 If a user asks whether that event was recorded on-chain, the answer is derived from `onchainRecorded`, rather than asking the language model to infer a boolean from prose.
 
+### Economic provenance foundation
+
+The MVP now includes domain primitives for recording economic and asset provenance without making legal ownership determinations.
+
+- `RevenueEvent` records a revenue source, amount, currency, status and explicit participant allocations.
+- `Allocation` stores the percentage rule used for a revenue event.
+- `AssetCreatedEvent` records an asset's creator provenance, including NFTs.
+- `calculate_allocations()` derives amounts only from explicit allocation rules.
+- `create_nicola_nft_event()` records an NFT created by Nicola as a creator-provenance event; it does not infer legal ownership or market value.
+
+The next layer is the persistent MYZ ledger and API. It should consume these explicit events rather than infer economic rights from AI output.
+
 ### Product direction
 
 The intended evolution is:
@@ -303,6 +315,8 @@ The ledger should never infer ownership from an AI answer. Ownership, revenue sp
 | Ollama local AI | Implemented |
 | Evidence-first RAG prompting | Implemented |
 | Deterministic answers for authoritative metadata | Implemented |
+| Economic provenance primitives | Implemented |
+| NFT creator provenance event | Implemented |
 | MYZ reward ledger | Planned / roadmap |
 | User wallet | Planned / roadmap |
 | Monetization flows | Planned / roadmap |
