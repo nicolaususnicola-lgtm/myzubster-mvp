@@ -256,6 +256,43 @@ Optional future on-chain adapter
 
 The MYZ layer is currently described as an **internal reward and accounting ledger**, not as an external currency. Wallet, reward and on-chain components remain roadmap work until they are implemented and tested in the repository.
 
+### Revenue & ownership model (to be formalized)
+
+The project is being designed around a separation between **project ownership**, **platform revenue**, and **contributions/assets created by individual participants**.
+
+The current working model described by the project participants is:
+
+| Revenue / asset area | Daniel | Nicola | Implementation principle |
+| --- | --- | --- | --- |
+| MyZubster online revenue | 2% according to the stated agreement | Remaining share according to the applicable agreement/cost structure | Revenue source must be recorded explicitly |
+| Conversions | Share to be defined by the agreement | Share to be defined by the agreement | Separate conversion revenue from general platform revenue |
+| Zorgax | Share to be defined by the agreement | Share to be defined by the agreement | Track Zorgax-related revenue separately |
+| Software | Project ownership/right to be defined by agreement | Development, software and know-how contribution | Do not infer IP ownership from code commits alone |
+| NFTs | Asset-specific ownership/creator rights | Assets attributable to Nicola where applicable | Each NFT should carry provenance and rights metadata |
+| Knowledge / know-how | As agreed | Nicola's documented contribution | Record contribution without automatically assigning legal ownership |
+
+These percentages and ownership fields are **business requirements to be formalized in an agreement**, not legal conclusions and not yet an implemented payment system.
+
+The intended technical model is:
+
+```text
+Revenue / asset event
+        ↓
+Source + provenance
+        ↓
+Ownership / contribution rule
+        ↓
+Applicable revenue split
+        ↓
+MYZ internal ledger
+        ↓
+Participant balance / accounting record
+        ↓
+Optional future payout or on-chain adapter
+```
+
+The ledger should never infer ownership from an AI answer. Ownership, revenue splits and NFT rights must come from explicit configuration and/or authoritative records. This keeps the economic layer auditable and independent from the language model.
+
 ### Implemented vs planned
 
 | Area | Status |
@@ -332,7 +369,7 @@ I dati sono conservati nel volume Docker `observations-data`. Non usare `docker 
 Lo stack include Ollama sul computer host, Qdrant e Open WebUI.
 
 ```powershell
-ollama pull mistral
+ollama pull qwen2.5:0.5b
 ollama pull nomic-embed-text
 docker compose up -d --build
 ```
