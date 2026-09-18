@@ -12,7 +12,7 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(_
 sys.path.insert(0, PROJECT_ROOT)
 
 from persistence_helper import load_ledger, load_observations, save_ledger, save_observations
-from src.core.economics import Allocation, AssetCreatedEvent, RevenueEvent, calculate_allocations, validate_allocations
+from src.core.economics import Allocation, AssetCreatedEvent, RevenueEvent, calculate_allocations, calculate_balances, validate_allocations
 from src.core.observation import Observation
 from src.api.comics import comics_api, answer_catalog
 
@@ -353,6 +353,24 @@ def list_asset_events():
         app.logger.exception("Impossibile leggere gli asset ledger")
         return jsonify({"error": f"Ledger non disponibile: {error}"}), 500
     return jsonify({"count": len(events), "events": events})
+
+
+@app.route("/api/ledger/balances", methods=["GET"])
+def list_ledger_balances():
+    try:
+        balances = calculate_balances(load_ledger())
+    except (OSError, ValueError, TypeError) as error:
+        app.logger.exception("Impossibile calcolare i balance")
+        return jsonify({"error": f"Ledger non disponibile: {error}"}), 500
+
+    participants = [
+        {
+            "participant_id": participant_id,
+            "balances": currencies,
+        }
+        for participant_id, currencies in sorted(balances.items())
+    ]
+    return jsonify({"participants": participants})
 
 
 @app.route("/api/ledger", methods=["GET"])
