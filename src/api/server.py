@@ -329,6 +329,32 @@ def create_asset_event():
     return jsonify(record), 201
 
 
+@app.route("/api/ledger/revenue", methods=["GET"])
+def list_revenue_events():
+    try:
+        events = [
+            event for event in load_ledger()
+            if event.get("event_type") == "REVENUE"
+        ]
+    except (OSError, ValueError) as error:
+        app.logger.exception("Impossibile leggere il revenue ledger")
+        return jsonify({"error": f"Ledger non disponibile: {error}"}), 500
+    return jsonify({"count": len(events), "events": events})
+
+
+@app.route("/api/ledger/assets", methods=["GET"])
+def list_asset_events():
+    try:
+        events = [
+            event for event in load_ledger()
+            if event.get("event_type") == "ASSET_CREATED"
+        ]
+    except (OSError, ValueError) as error:
+        app.logger.exception("Impossibile leggere gli asset ledger")
+        return jsonify({"error": f"Ledger non disponibile: {error}"}), 500
+    return jsonify({"count": len(events), "events": events})
+
+
 @app.route("/api/ledger", methods=["GET"])
 def list_ledger():
     try:
