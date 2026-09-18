@@ -54,6 +54,7 @@ def test_revenue_event_serializes_auditable_source_and_allocations():
         "currency": "EUR",
         "allocations": [{"participant_id": "daniel", "percentage": 2}],
         "status": "RECORDED",
+        "created_at": event.to_dict()["created_at"],
     }
 
 
@@ -68,6 +69,7 @@ def test_nicola_nft_is_recorded_as_creator_provenance():
         "asset_type": "NFT",
         "creator_id": "nicola",
         "provenance_status": "RECORDED",
+        "created_at": event.to_dict()["created_at"],
     }
 
 
@@ -139,3 +141,29 @@ def test_balance_breakdown_groups_amounts_by_source():
             },
         },
     }
+
+
+
+def test_revenue_event_accepts_explicit_audit_timestamp():
+    event = RevenueEvent(
+        event_id="rev-time-001",
+        source="ZORGAX",
+        amount=10,
+        currency="EUR",
+        allocations=(Allocation("nicola", 100),),
+        created_at="2026-09-18T20:00:00.000Z",
+    )
+
+    assert event.to_dict()["created_at"] == "2026-09-18T20:00:00.000Z"
+
+
+def test_asset_event_accepts_explicit_audit_timestamp():
+    event = AssetCreatedEvent(
+        event_id="asset-time-001",
+        asset_id="asset-001",
+        asset_type="NFT",
+        creator_id="nicola",
+        created_at="2026-09-18T20:00:00.000Z",
+    )
+
+    assert event.to_dict()["created_at"] == "2026-09-18T20:00:00.000Z"
