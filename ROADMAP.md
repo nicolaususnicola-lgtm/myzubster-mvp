@@ -78,6 +78,21 @@ Current boundary: `n4k48-comic-001` remains **NFT_CANDIDATE / PROPOSED_FOR_REVIE
 
 Linear: **N4K-20, N4K-21, N4K-22**
 
+## Phase 6 — MYZ Wallet & Monetization
+
+Goal: make it possible to account for, receive and use MYZ through a secure, auditable wallet layer, while keeping the MVP independent from a specific blockchain until an on-chain design is explicitly selected and verified.
+
+- [ ] Specify what MYZ represents, including issuance/supply rules and wallet/account semantics.
+- [ ] Implement a MYZ wallet API and auditable transaction ledger.
+- [ ] Add deterministic, evidence-linked reward rules and duplicate-credit protection.
+- [ ] Threat-model authentication, authorization, keys/custody, recovery, replay/double-spend risks, rate limits, audit logs and secret handling.
+- [ ] Define an optional on-chain adapter without coupling the core ledger to one chain.
+- [ ] Before enabling purchase, sale, conversion, custody, redemption or fiat/crypto flows, review the applicable legal, compliance and tax requirements for the intended operating model and jurisdictions.
+- [ ] Prototype the monetization flow only after wallet, security and compliance gates are satisfied.
+- [ ] Do not describe MYZ as on-chain, convertible or custodial until those properties are implemented and supported by verifiable evidence.
+
+Linear: **N4K-23, N4K-24, N4K-25, N4K-26, N4K-27, N4K-28, N4K-29**
+
 ## Architecture
 
 ```text
@@ -111,10 +126,18 @@ Question path:
 question -> embed -> Qdrant search -> context -> Mistral -> answer
 ```
 
+Planned MYZ economic path:
+
+```text
+verified event -> reward rule -> MYZ ledger transaction -> wallet balance
+                                            |
+                                            +-> optional future on-chain adapter
+```
+
 ## Definition of progress
 
 - **Done** — backed by current local evidence or committed implementation.
 - **Todo** — defined next work with no completion claim.
 - **Backlog** — later work dependent on earlier verification.
 
-The objective is to evolve MyZubster/N4K48 from a functioning local RAG prototype into a reproducible public integration without confusing planned functionality with verified functionality.
+The objective is to evolve MyZubster/N4K48 from a functioning local RAG prototype into a reproducible public integration and a secure, evidence-driven MYZ economic layer without confusing planned functionality with verified functionality.
