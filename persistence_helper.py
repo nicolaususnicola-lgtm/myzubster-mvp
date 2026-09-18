@@ -28,3 +28,30 @@ def save_observations(observations):
     with temporary_path.open("w", encoding="utf-8") as stream:
         json.dump(observations, stream, ensure_ascii=False, indent=2)
     temporary_path.replace(path)
+
+
+LEDGER_FILE = os.environ.get("MYZUBSTER_LEDGER_FILE", "ledger.json")
+
+
+def _ledger_path():
+    return Path(LEDGER_FILE)
+
+
+def load_ledger():
+    path = _ledger_path()
+    if not path.exists():
+        return []
+    with path.open("r", encoding="utf-8") as stream:
+        data = json.load(stream)
+    if not isinstance(data, list):
+        raise ValueError("Il ledger deve contenere una lista")
+    return data
+
+
+def save_ledger(events):
+    path = _ledger_path()
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary_path = path.with_suffix(f"{path.suffix}.tmp")
+    with temporary_path.open("w", encoding="utf-8") as stream:
+        json.dump(events, stream, ensure_ascii=False, indent=2)
+    temporary_path.replace(path)
