@@ -149,3 +149,37 @@ def test_create_nft_asset_event_persists_creator_provenance(load, save):
     assert event["asset_type"] == "NFT"
     assert event["provenance_status"] == "RECORDED"
     save.assert_called_once_with([event])
+
+
+@patch("src.api.server.load_ledger")
+def test_list_revenue_events_returns_only_revenue(load):
+    load.return_value = [
+        {"event_type": "REVENUE", "event_id": "rev-1"},
+        {"event_type": "ASSET_CREATED", "event_id": "asset-1"},
+    ]
+    response = app.test_client().get("/api/ledger/revenue")
+    assert response.status_code == 200
+    assert response.get_json() == {
+        "count": 1,
+        "events": [{"event_type": "REVENUE", "event_id": "rev-1"}],
+    }
+
+
+@patch("src.api.server.load_ledger")
+def test_list_asset_events_returns_only_assets(load):
+    load.return_value = [
+        {"event_type": "REVENUE", "event_id": "rev-1"},
+        {"event_type": "ASSET_CREATED", "event_id": "asset-1", "asset_id": "n4k48-comic-001"},
+    ]
+    response = app.test_client().get("/api/ledger/assets")
+    assert response.status_code == 200
+    assert response.get_json() == {
+        "count": 1,
+        "events": [
+            {
+                "event_type": "ASSET_CREATED",
+                "event_id": "asset-1",
+                "asset_id": "n4k48-comic-001",
+            }
+        ],
+    }
