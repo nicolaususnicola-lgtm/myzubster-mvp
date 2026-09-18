@@ -118,3 +118,53 @@ def calculate_balances(events: list[dict]) -> dict[str, dict[str, float]]:
                 2,
             )
     return balances
+
+
+
+REVENUE_SOURCES = (
+    "MYZUBSTER_ONLINE",
+    "CONVERSION",
+    "ZORGAX",
+    "NFT",
+    "SOFTWARE",
+    "KNOWLEDGE",
+)
+
+
+def normalize_revenue_source(source: str) -> str:
+    """Validate and normalize an explicit revenue source identifier."""
+    normalized = str(source).strip().upper()
+    if normalized not in REVENUE_SOURCES:
+        raise ValueError(
+            "source non valida; usare una delle fonti supportate: "
+            + ", ".join(REVENUE_SOURCES)
+        )
+    return normalized
+
+
+def calculate_balance_breakdown(events: list[dict]) -> dict[str, dict]:
+    """Aggregate participant balances by currency and by explicit source."""
+    result: dict[str, dict] = {}
+    for event in events:
+        if event.get("event_type") != "REVENUE":
+            continue
+        currency = str(event.get("currency", "")).strip()
+        source = str(event.get("source", "")).strip()
+        if not currency or not source:
+            continue
+        for participant_id, amount in (event.get("calculated_amounts") or {}).items():
+            participant = result.setdefault(
+                str(participant_id),
+                {"balances": {}, "by_source": {}},
+            )
+            value = float(amount)
+            participant["balances"][currency] = round(
+                participant["balances"].get(currency, 0.0) + value,
+                2,
+            )
+            source_totals = participant["by_source"].setdefault(source, {})
+            source_totals[currency] = round(
+                source_totals.get(currency, 0.0) + value,
+                2,
+            )
+    return result
