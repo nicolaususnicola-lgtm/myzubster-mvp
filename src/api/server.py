@@ -12,7 +12,7 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(_
 sys.path.insert(0, PROJECT_ROOT)
 
 from persistence_helper import load_ledger, load_observations, save_ledger, save_observations
-from src.core.economics import Allocation, AssetCreatedEvent, RevenueEvent, calculate_allocations, calculate_balances, validate_allocations
+from src.core.economics import Allocation, AssetCreatedEvent, RevenueEvent, calculate_allocations, calculate_balance_breakdown, normalize_revenue_source, validate_allocations
 from src.core.observation import Observation
 from src.api.comics import comics_api, answer_catalog
 
@@ -250,7 +250,7 @@ def create_revenue_event():
     try:
         amount = float(data["amount"])
         currency = str(data["currency"]).strip()
-        source = str(data["source"]).strip()
+        source = normalize_revenue_source(data["source"])
         allocations_data = data["allocations"]
     except (KeyError, TypeError, ValueError):
         return jsonify({"error": "source, amount, currency e allocations sono obbligatori"}), 400
@@ -358,7 +358,7 @@ def list_asset_events():
 @app.route("/api/ledger/balances", methods=["GET"])
 def list_ledger_balances():
     try:
-        balances = calculate_balances(load_ledger())
+        balances = calculate_balance_breakdown(load_ledger())
     except (OSError, ValueError, TypeError) as error:
         app.logger.exception("Impossibile calcolare i balance")
         return jsonify({"error": f"Ledger non disponibile: {error}"}), 500
@@ -366,9 +366,9 @@ def list_ledger_balances():
     participants = [
         {
             "participant_id": participant_id,
-            "balances": currencies,
+            **details,
         }
-        for participant_id, currencies in sorted(balances.items())
+        for participant_id, details in sorted(balances.items())
     ]
     return jsonify({"participants": participants})
 
