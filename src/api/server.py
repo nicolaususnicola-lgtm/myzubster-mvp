@@ -1,3 +1,4 @@
+import json
 import os
 import sys
 from urllib.parse import quote
@@ -130,13 +131,15 @@ def _search_observations(question):
 
 def _generate_answer(question, context):
     context_text = "\n".join(
-        f"- {observation.get('description', '')} "
-        f"(coordinate: {observation.get('coordinates', {})}, "
-        f"data: {observation.get('timestamp', 'n/d')})"
-        for observation in context
+        (
+            f"[FONTE {index}] "
+            f"description={observation.get('description', '')}\n"
+            f"metadata={json.dumps(observation.get('metadata', {}), ensure_ascii=False, sort_keys=True)}"
+        )
+        for index, observation in enumerate(context, start=1)
     )
     if not context_text:
-        context_text = "Nessuna osservazione MyZubster disponibile."
+        context_text = "NESSUNA FONTE DISPONIBILE"
 
     payload = _request_json(
         "POST",
@@ -148,14 +151,22 @@ def _generate_answer(question, context):
                 {
                     "role": "system",
                     "content": (
-                        "Sei l'assistente MyZubster. Rispondi in italiano usando soltanto "
-                        "il contesto fornito. Se il contesto non contiene la risposta, "
-                        "dichiara chiaramente che non ci sono informazioni sufficienti."
+                        "Sei l'assistente evidence-first di MyZubster. "
+                        "Usa esclusivamente fatti esplicitamente presenti nelle FONTI. "
+                        "Non inventare e non dedurre informazioni mancanti. "
+                        "Ignora le fonti non pertinenti. "
+                        "Se la risposta non e presente nelle fonti, rispondi esattamente: "
+                        "'Informazione non disponibile nelle fonti MyZubster.' "
+                        "Rispondi in italiano in modo breve e fattuale."
                     ),
                 },
                 {
                     "role": "user",
-                    "content": f"Contesto MyZubster:\n{context_text}\n\nDomanda: {question}",
+                    "content": (
+                        f"FONTI:\n{context_text}\n\n"
+                        f"DOMANDA:\n{question}\n\n"
+                        "Estrai soltanto i fatti necessari per rispondere."
+                    ),
                 },
             ],
         },
@@ -192,6 +203,12 @@ def create_observation():
         media_hash=str(data.get("media_hash", "")),
     ).to_dict()
 
+    metadata = data.get("metadata")
+    if metadata is not None:
+        if not isinstance(metadata, dict):
+            return jsonify({"error": "Metadata non validi"}), 400
+        observation["metadata"] = metadata
+
     try:
         observations = load_observations()
         observations.append(observation)
@@ -221,6 +238,58 @@ def list_observations():
     return jsonify({"count": len(observations), "observations": observations})
 
 
+def _authoritative_metadata_answer(question, context):
+    if not context:
+        return None
+
+    metadata = context[0].get("metadata")
+    if not isinstance(metadata, dict):
+        return None
+
+    question_lower = question.lower()
+    parts = []
+
+    if "status" in metadata and any(
+        term in question_lower
+        for term in ("stato", "status")
+    ):
+        parts.append(f"Stato: {metadata['status']}.")
+
+    if "onchainRecorded" in metadata and any(
+        term in question_lower
+        for term in ("blockchain", "onchain", "on-chain")
+    ):
+        value = metadata["onchainRecorded"]
+        if isinstance(value, bool):
+            parts.append(
+                "Registrazione blockchain: "
+                + ("SI." if value else "no.")
+            )
+
+    if "paymentRequired" in metadata and any(
+        term in question_lower
+        for term in ("pagamento", "payment")
+    ):
+        value = metadata["paymentRequired"]
+        if isinstance(value, bool):
+            parts.append(
+                "Pagamento richiesto: "
+                + ("SI." if value else "no.")
+            )
+
+    if "success" in metadata and any(
+        term in question_lower
+        for term in ("successo", "success", "riuscito")
+    ):
+        value = metadata["success"]
+        if isinstance(value, bool):
+            parts.append(
+                "Operazione riuscita: "
+                + ("SI." if value else "no.")
+            )
+
+    return " ".join(parts) if parts else None
+
 @app.route("/api/ai/ask", methods=["POST"])
 def ask_ai():
     data = request.get_json(silent=True)
@@ -240,7 +309,9 @@ def ask_ai():
 
     try:
         context = _search_observations(question)
-        answer = _generate_answer(question, context)
+        answer = _authoritative_metadata_answer(question, context)
+        if answer is None:
+            answer = _generate_answer(question, context)
     except (OSError, ValueError) as error:
         app.logger.exception("Errore durante la richiesta AI")
         return jsonify({"error": f"Risposta AI non disponibile: {error}"}), 502
