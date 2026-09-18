@@ -1,6 +1,45 @@
 # N4K48 // MyZubster MVP
 
 <p align="center">
+  <strong>Evidence-first AI · Local RAG · MYZ Ledger · Economic Provenance · Revenue Simulation</strong>
+</p>
+
+<p align="center">
+  <a href="https://github.com/nicolaususnicola-lgtm/myzubster-mvp"><strong>🚀 MVP REPOSITORY</strong></a> ·
+  <a href="https://github.com/nicolaususnicola-lgtm/myzubster-mvp/tree/main/docs/n4k48-comics"><strong>🎨 NICO COMICS</strong></a> ·
+  <a href="https://github.com/nicolaususnicola-lgtm/myzubster-mvp/blob/main/docs/n4k48-comics/ROADMAP.md"><strong>🗺️ ROADMAP</strong></a> ·
+  <a href="https://github.com/nicolaususnicola-lgtm/myzubster-mvp/blob/main/docs/N4K48.md"><strong>👤 N4K48 PROFILE</strong></a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/MyZubster-Ecosystem/myzubster"><strong>🌐 MYZUBSTER ECOSYSTEM</strong></a> ·
+  <a href="https://github.com/MyZubster-Ecosystem/MyZubster-Visual"><strong>🌌 VISUAL UNIVERSE</strong></a> ·
+  <a href="https://github.com/MyZubster-Ecosystem/myzubster/blob/main/public/fumetto.html"><strong>📖 COMIC UNIVERSE</strong></a> ·
+  <a href="https://dev.to/n4k48/building-n4k48-my-journey-with-myzubster-ai-and-neon-plaza-3nbp"><strong>✍️ DEV.TO</strong></a>
+</p>
+
+## 🚀 Current Development
+
+MyZubster MVP is evolving into an **evidence-first economic and AI platform**.
+
+**Observations → Evidence → Local AI/RAG → Economic Provenance → MYZ Ledger → Derived Balance → Revenue & Cost Simulation**
+
+| Area | Interactive link |
+| --- | --- |
+| MyZubster MVP | [Open repository →](https://github.com/nicolaususnicola-lgtm/myzubster-mvp) |
+| Nico Comics | [Open gallery →](https://github.com/nicolaususnicola-lgtm/myzubster-mvp/tree/main/docs/n4k48-comics) |
+| Comics roadmap | [Open roadmap →](https://github.com/nicolaususnicola-lgtm/myzubster-mvp/blob/main/docs/n4k48-comics/ROADMAP.md) |
+| N4K48 profile | [Open profile →](https://github.com/nicolaususnicola-lgtm/myzubster-mvp/blob/main/docs/N4K48.md) |
+| MyZubster Core | [Open ecosystem →](https://github.com/MyZubster-Ecosystem/myzubster) |
+| MyZubster Visual | [Open visual universe →](https://github.com/MyZubster-Ecosystem/MyZubster-Visual) |
+| Comic Universe | [Open comic →](https://github.com/MyZubster-Ecosystem/myzubster/blob/main/public/fumetto.html) |
+| Circular Economy visuals | [Explore visuals →](https://github.com/MyZubster-Ecosystem/myzubster/tree/main/docs/visuals) |
+| DEV.to | [Read the dev story →](https://dev.to/n4k48/building-n4k48-my-journey-with-myzubster-ai-and-neon-plaza-3nbp) |
+
+> **Economic boundary:** simulations are scenario calculations only. They are not recorded revenue, payouts, wallet funds, certified profit, or on-chain transactions.
+
+
+<p align="center">
   <a href="https://github.com/MyZubster-Ecosystem/myzubster">
     <img src="https://raw.githubusercontent.com/MyZubster-Ecosystem/myzubster/main/docs/visuals/drive-import-2026-09-03/Neon-Plaza-H4X0R-N4K48-Cyberpunk.jpg" alt="N4K48 entra nel Neon Plaza MyZubster" width="760">
   </a>
@@ -67,7 +106,7 @@ Zorgax represents the AI guidance layer. Its role is to assist with planning, an
 - Public GitHub documentation available
 - N4K48 identity and visual profile published
 - MyZubster authenticated flow tested
-- 27 automated tests passed
+- Automated test suite maintained and expanded as the MVP evolves
 - First public DEV.to article published
 - Seven-day product test in progress
 - User validation still partial
@@ -252,6 +291,28 @@ Revenue events calculate participant amounts only from explicit allocation perce
 
 
 
+### Revenue & Cost Simulator
+
+The MVP now includes a **Revenue & Cost Simulator** for modelling economic scenarios without writing simulated values to the persistent MYZ Ledger.
+
+Scenario inputs include transaction volume, average ticket, Marketplace commission, Zorgax Pro and Developer users, payment-fee assumptions, AI costs, hosting costs and other monthly costs.
+
+The simulator derives:
+
+```text
+GMV
+ ↓
+Marketplace revenue + Zorgax revenue
+ ↓
+Payment + AI + hosting + other cost assumptions
+ ↓
+Monthly revenue / monthly costs / monthly margin
+ ↓
+Annualized scenario
+```
+
+The simulator is deliberately separated from persistent accounting. Running a scenario does **not** create a revenue event, change MYZ Balance, initiate a payout, create wallet funds, or record an on-chain transaction.
+
 ### Product direction
 
 The intended evolution is:
@@ -324,7 +385,9 @@ The ledger should never infer ownership from an AI answer. Ownership, revenue sp
 | Economic provenance primitives | Implemented |
 | NFT creator provenance event | Implemented |
 | MYZ reward ledger | Implemented (internal) |
-| Derived participant balance | Implemented (internal) |\n| User wallet | Planned / roadmap |
+| Derived participant balance | Implemented (internal) |
+| Revenue & Cost Simulator | Implemented (scenario-only) |
+| User wallet | Planned / roadmap |
 | Monetization flows | Planned / roadmap |
 | Optional on-chain adapter | Planned / roadmap |
 
