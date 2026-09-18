@@ -38,6 +38,16 @@ MyZubster MVP is evolving into an **evidence-first economic and AI platform**.
 
 > **Economic boundary:** simulations are scenario calculations only. They are not recorded revenue, payouts, wallet funds, certified profit, or on-chain transactions.
 
+### 🔗 Knowledge transfer evidence — 18 September 2026
+
+The public development snapshot from today's MyZubster/N4K48 collaboration has been frozen as a canonical knowledge-transfer manifest and prepared for a Base Sepolia integrity/timestamp anchor.
+
+**Commitment SHA-256:** `39ab3a177734b5e3e254657cfe6015100644bcda2fb008cf2561d000669b9e14`
+
+[Read the human evidence record →](knowledge/KNOWLEDGE-TRANSFER-2026-09-18-DANIEL-NICOLA.md) · [Inspect the canonical JSON →](knowledge/KNOWLEDGE-TRANSFER-2026-09-18-DANIEL-NICOLA.json)
+
+> The commitment records the public snapshot and source assertion. It does not by itself prove learning, authorship of every idea or scientific validity. Nicola's recipient attestation remains `PENDING` until explicitly confirmed.
+
 
 <p align="center">
   <a href="https://github.com/MyZubster-Ecosystem/myzubster">
@@ -110,7 +120,7 @@ Zorgax represents the AI guidance layer. Its role is to assist with planning, an
 - First public DEV.to article published
 - Seven-day product test in progress
 - User validation still partial
-- Public production release not yet available
+- Public pilot deployment available on Render: https://myzubster-mvp.onrender.com/
 
 ### Project links
 
