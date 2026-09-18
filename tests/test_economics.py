@@ -5,6 +5,7 @@ from src.core.economics import (
     calculate_allocations,
     create_nicola_nft_event,
     validate_allocations,
+    calculate_balances,
 )
 
 
@@ -65,4 +66,29 @@ def test_nicola_nft_is_recorded_as_creator_provenance():
         "asset_type": "NFT",
         "creator_id": "nicola",
         "provenance_status": "RECORDED",
+    }
+
+
+
+def test_balances_are_derived_from_recorded_revenue_events():
+    events = [
+        {
+            "event_type": "REVENUE",
+            "currency": "EUR",
+            "calculated_amounts": {"daniel": 20.0, "nicola": 980.0},
+        },
+        {
+            "event_type": "REVENUE",
+            "currency": "EUR",
+            "calculated_amounts": {"daniel": 10.0, "nicola": 490.0},
+        },
+        {
+            "event_type": "ASSET_CREATED",
+            "creator_id": "nicola",
+        },
+    ]
+
+    assert calculate_balances(events) == {
+        "daniel": {"EUR": 30.0},
+        "nicola": {"EUR": 1470.0},
     }
