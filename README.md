@@ -50,14 +50,14 @@ The public development snapshot from today's MyZubster/N4K48 collaboration has b
 
 
 <p align="center">
-  <a href="https://github.com/MyZubster-Ecosystem/myzubster">
-    <img src="https://raw.githubusercontent.com/MyZubster-Ecosystem/myzubster/main/docs/visuals/drive-import-2026-09-03/Neon-Plaza-H4X0R-N4K48-Cyberpunk.jpg" alt="N4K48 entra nel Neon Plaza MyZubster" width="760">
+  <a href="https://github.com/MyZubster-Ecosystem/MyZubster-Visual/blob/main/visuals/knowledge-pilots/MyZubster-H4X0R-N4K48-Neon-Plaza-Cyberpunk.png">
+    <img src="https://raw.githubusercontent.com/MyZubster-Ecosystem/MyZubster-Visual/main/visuals/knowledge-pilots/MyZubster-H4X0R-N4K48-Neon-Plaza-Cyberpunk.png" alt="H4X0R and N4K48 in Neon Plaza — MyZubster verified knowledge-transfer pilot visual" width="760">
   </a>
 </p>
 
 <p align="center">
   <strong>N4K48 · EXPLORER · NEON PLAZA · CYBERPUNK · CIRCULAR ECONOMY · MYZUBSTER</strong><br>
-  Profilo visuale di Nicola collegato all'ecosistema MyZubster, all'universo cyberpunk e al percorso di economia circolare.
+  Visuale aggiornata del pilot H4X0R × N4K48 collegata all'ecosistema MyZubster, a Neon Plaza e alla catena di evidenza del knowledge transfer confermata su Base Sepolia.
 </p>
 
 <p align="center">
