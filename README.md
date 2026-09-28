@@ -18,6 +18,22 @@
   <a href="https://dev.to/n4k48/building-n4k48-my-journey-with-myzubster-ai-and-neon-plaza-3nbp"><strong>✍️ DEV.TO</strong></a>
 </p>
 
+## 🔐 Knowledge Card → Ethereum Sepolia Proof v2
+
+N4K48 ha completato un proof-of-concept che collega una Knowledge Card MyZubster a una prova crittografica pubblica. Il contenuto attestato è conservato come payload nel repository; il suo SHA-256 è stato registrato nel contratto `MyZubsterProof` su Ethereum Sepolia e il valore letto da `knowledgeHash()` coincide con il digest documentato.
+
+**Verification path:** `N4K48 → Knowledge Card → canonical payload → SHA-256 → Proof v2 Sepolia → GitHub documentation`
+
+**SHA-256:** `6097e05866bafceec24663d2638cb1dae5742ac78284abbfd45cc9c3b0bfb845`
+
+- [Knowledge Card](https://www.myzubster.com/knowledge-card?id=6abaaefb3a7460c4574a45fd)
+- [Canonical payload](proofs/knowledge-card-6abaaefb3a7460c4574a45fd-v1.json)
+- [Proof v2 documentation](proofs/SEPOLIA_PROOF_V2.md)
+- [Ethereum Sepolia contract](https://sepolia.etherscan.io/address/0x21787249Df054132093FcF09bB914C0CCC539390)
+- [Deployment transaction](https://sepolia.etherscan.io/tx/0xc837ba3f3046f3712e3eba4b81107cb22939b61300f2cab3cfe5bbb7b3319ded)
+
+> **Proof boundary:** questa prova dimostra l'integrità e il collegamento crittografico del payload attestato con il digest registrato on-chain. Non certifica automaticamente veridicità, proprietà o competenze dichiarate nella Knowledge Card.
+
 ## 🚀 Current Development
 
 MyZubster MVP is evolving into an **evidence-first economic and AI platform**.
