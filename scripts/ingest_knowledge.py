@@ -20,18 +20,51 @@ def deterministic_id(value):
 
 def chunks(text):
     start = 0
+    text_length = len(text)
 
-    while start < len(text):
-        end = min(start + CHUNK_SIZE, len(text))
+    while start < text_length:
+        hard_end = min(start + CHUNK_SIZE, text_length)
+        end = hard_end
+
+        if hard_end < text_length:
+            window = text[start:hard_end]
+
+            # Preferisci la fine di un paragrafo.
+            paragraph_break = window.rfind("\n\n")
+
+            # Altrimenti usa la fine di una riga.
+            line_break = window.rfind("\n")
+
+            # Evita chunk troppo piccoli.
+            minimum_break = int(CHUNK_SIZE * 0.6)
+
+            if paragraph_break >= minimum_break:
+                end = start + paragraph_break
+            elif line_break >= minimum_break:
+                end = start + line_break
+
         chunk = text[start:end].strip()
 
         if chunk:
             yield start, chunk
 
-        if end >= len(text):
+        if end >= text_length:
             break
 
-        start = end - CHUNK_OVERLAP
+        # Mantieni l'overlap, ma cerca di ripartire
+        # dall'inizio di una riga.
+        next_start = max(0, end - CHUNK_OVERLAP)
+
+        newline = text.find("\n", next_start, end)
+
+        if newline != -1:
+            next_start = newline + 1
+
+        # Protezione contro eventuali loop infiniti.
+        if next_start <= start:
+            next_start = end
+
+        start = next_start
 
 
 def embedding(text):
@@ -46,7 +79,9 @@ def embedding(text):
     embeddings = data.get("embeddings")
 
     if not embeddings or not embeddings[0]:
-        raise ValueError("Ollama non ha restituito un embedding valido")
+        raise ValueError(
+            "Ollama non ha restituito un embedding valido"
+        )
 
     return embeddings[0]
 
@@ -130,4 +165,3 @@ print(
     f"Loaded {loaded} knowledge chunks; "
     f"skipped {skipped} empty documents"
 )
-
