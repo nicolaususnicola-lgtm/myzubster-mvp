@@ -1,4 +1,7 @@
-"""Cryptographic verification helpers for MyZubster Knowledge Card proofs."""
+"""Cryptographic verification helpers for MyZubster Knowledge Card proofs.
+
+The verifier hashes exact payload bytes and compares them with Sepolia storage.
+"""
 
 from __future__ import annotations
 
