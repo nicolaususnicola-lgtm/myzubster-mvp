@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MyZubster Knowledge Proof Verifier</title>
+<style>
+body{font-family:system-ui,sans-serif;background:#0b1020;color:#eef2ff;margin:0;padding:32px}.wrap{max-width:820px;margin:auto}.card{background:#151c32;border:1px solid #303b5b;border-radius:18px;padding:24px}h1{margin-top:0}label{display:block;margin:16px 0 6px}input{box-sizing:border-box;width:100%;padding:12px;border-radius:10px;border:1px solid #465273;background:#0e1528;color:#fff}button{margin-top:20px;padding:12px 18px;border:0;border-radius:10px;font-weight:700;cursor:pointer}.result{margin-top:24px;padding:18px;border-radius:14px;background:#0e1528}.ok{border:1px solid #38a169}.bad{border:1px solid #e53e3e}.hash{font-family:monospace;overflow-wrap:anywhere}.muted{color:#aab4d0}a{color:#9fc5ff}
+</style></head>
+<body><div class="wrap"><div class="card">
+<h1>Knowledge Proof Verifier</h1>
+<p class="muted">Verifica che i byte del payload MyZubster producano lo stesso SHA-256 registrato nel contratto Ethereum Sepolia.</p>
+<form id="verify">
+<label>Payload nel repository</label><input id="payload" value="proofs/knowledge-card-6abaaefb3a7460c4574a45fd-v1.json">
+<label>Contratto Sepolia</label><input id="contract" value="0x21787249Df054132093FcF09bB914C0CCC539390">
+<label>SHA-256 atteso</label><input id="expected" value="0x6097e05866bafceec24663d2638cb1dae5742ac78284abbfd45cc9c3b0bfb845">
+<button type="submit">Verifica Proof</button>
+</form><div id="out"></div>
+</div></div>
+<script>
+const form=document.getElementById('verify'),out=document.getElementById('out');
+form.addEventListener('submit',async e=>{e.preventDefault();out.innerHTML='<div class="result">Verifica in corso…</div>';
+try{const r=await fetch('/api/proofs/knowledge-card/verify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({payload:payload.value,contract_address:contract.value,expected_hash:expected.value||null})});const d=await r.json();if(!r.ok)throw new Error(d.error||'Verifica non disponibile');
+const ok=d.status==='MATCH';const address=encodeURIComponent(d.contract_address);
+out.innerHTML='<div class="result '+(ok?'ok':'bad')+'"><h2>'+(ok?'✓ VERIFIED — MATCH':'✕ NO MATCH')+'</h2><p><b>Network:</b> '+d.network+' (chain '+d.chain_id+')</p><p><b>Payload SHA-256</b></p><div class="hash">'+d.payload_sha256+'</div><p><b>Valore on-chain</b></p><div class="hash">'+d.onchain_bytes32+'</div><p><b>Payload:</b> '+d.payload+'</p><p><a target="_blank" rel="noopener" href="https://sepolia.etherscan.io/address/'+address+'">Apri contratto su Etherscan</a></p><p class="muted">La verifica dimostra integrità e collegamento crittografico del payload; non certifica automaticamente la veridicità delle competenze dichiarate.</p></div>';
+}catch(err){out.innerHTML='<div class="result bad"><b>Errore:</b> '+String(err.message)+'</div>';}});
+</script></body></html>

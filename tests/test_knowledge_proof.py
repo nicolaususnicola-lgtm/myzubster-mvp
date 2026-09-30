@@ -56,3 +56,37 @@ def test_proof_v2_against_sepolia():
         expected_hash="0x6097e05866bafceec24663d2638cb1dae5742ac78284abbfd45cc9c3b0bfb845",
     )
     assert result["status"] == "MATCH"
+
+
+def test_visual_verifier_page():
+    from src.api.server import app
+    client = app.test_client()
+    response = client.get("/knowledge-proof-verifier")
+    assert response.status_code == 200
+    assert b"Knowledge Proof Verifier" in response.data
+    assert b"Verifica Proof" in response.data
+
+
+def test_cli_returns_nonzero_for_changed_payload(monkeypatch, tmp_path):
+    from scripts import verify_knowledge_proof as cli
+    payload = tmp_path / "changed.json"
+    payload.write_bytes(b"changed payload")
+    monkeypatch.setattr(
+        cli,
+        "verify_knowledge_proof",
+        lambda *args, **kwargs: {"status": "NO_MATCH"},
+    )
+    assert cli.main([str(payload), "0x21787249Df054132093FcF09bB914C0CCC539390"]) == 1
+
+
+def test_cli_returns_nonzero_when_rpc_is_unavailable(monkeypatch, tmp_path):
+    import requests
+    from scripts import verify_knowledge_proof as cli
+    payload = tmp_path / "card.json"
+    payload.write_bytes(b"payload")
+
+    def unavailable(*args, **kwargs):
+        raise requests.ConnectionError("RPC unavailable")
+
+    monkeypatch.setattr(cli, "verify_knowledge_proof", unavailable)
+    assert cli.main([str(payload), "0x21787249Df054132093FcF09bB914C0CCC539390"]) == 2

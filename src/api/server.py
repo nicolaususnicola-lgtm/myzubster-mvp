@@ -436,6 +436,13 @@ def _authoritative_metadata_answer(question, context):
 
     return " ".join(parts) if parts else None
 
+@app.route("/knowledge-proof-verifier", methods=["GET"])
+def knowledge_proof_verifier_page():
+    """Serve the visual Knowledge Proof verifier."""
+    with open(os.path.join(os.path.dirname(__file__), "knowledge_proof_verifier.html"), encoding="utf-8") as handle:
+        return handle.read()
+
+
 @app.route("/api/proofs/knowledge-card/verify", methods=["POST"])
 def verify_knowledge_card_proof():
     data = request.get_json(silent=True)
