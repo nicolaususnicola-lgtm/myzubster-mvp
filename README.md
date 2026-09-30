@@ -526,3 +526,19 @@ Vedi [CONTRIBUTING.md](CONTRIBUTING.md).
 Vedi [LICENSE](LICENSE).
 
 MYZ è un ledger interno di ricompensa e contabilità, non una valuta esterna.
+
+
+#### Repeatable Proof v2 CLI (MYZ-213)
+
+Verify the exact committed payload bytes against the public Proof v2 contract on Ethereum Sepolia:
+
+```bash
+python scripts/verify_knowledge_proof.py \
+  proofs/knowledge-card-6abaaefb3a7460c4574a45fd-v1.json \
+  0x21787249Df054132093FcF09bB914C0CCC539390 \
+  --expected-hash 0x6097e05866bafceec24663d2638cb1dae5742ac78284abbfd45cc9c3b0bfb845
+```
+
+The command hashes the exact file bytes without JSON reserialization and performs public read-only RPC calls. Set `SEPOLIA_RPC_URL` or pass `--rpc-url` to use another Sepolia endpoint. Exit code `0` means `MATCH`; `1` means the content/hash does not match; `2` means verification could not be completed because of a file, RPC, contract, or validation error. No private key, signature, or transaction is required.
+
+A `MATCH` establishes the cryptographic link between those payload bytes and the value read from the Proof v2 contract; it does not automatically certify the truth of the Knowledge Card's claims or skills.
