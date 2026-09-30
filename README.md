@@ -34,6 +34,20 @@ N4K48 ha completato un proof-of-concept che collega una Knowledge Card MyZubster
 
 > **Proof boundary:** questa prova dimostra l'integrità e il collegamento crittografico del payload attestato con il digest registrato on-chain. Non certifica automaticamente veridicità, proprietà o competenze dichiarate nella Knowledge Card.
 
+### Knowledge Proof Verifier
+
+Il branch `feature/knowledge-proof-verifier` introduce un verificatore riutilizzabile. L'endpoint `POST /api/proofs/knowledge-card/verify` calcola il SHA-256 dei byte esatti del payload nel repository, legge `knowledgeHash()` dal contratto Sepolia via JSON-RPC e restituisce `MATCH` soltanto quando i valori coincidono.
+
+Esempio per la Proof v2:
+
+```bash
+curl -X POST http://localhost:5000/api/proofs/knowledge-card/verify \
+  -H "Content-Type: application/json" \
+  -d '{"payload":"proofs/knowledge-card-6abaaefb3a7460c4574a45fd-v1.json","contract_address":"0x21787249Df054132093FcF09bB914C0CCC539390","expected_hash":"0x6097e05866bafceec24663d2638cb1dae5742ac78284abbfd45cc9c3b0bfb845"}'
+```
+
+`SEPOLIA_RPC_URL` può essere configurato nell'ambiente per usare un endpoint RPC diverso. Il verifier controlla integrità e corrispondenza crittografica; non certifica la veridicità delle dichiarazioni contenute nella Knowledge Card.
+
 ## 🚀 Current Development
 
 MyZubster MVP is evolving into an **evidence-first economic and AI platform**.
