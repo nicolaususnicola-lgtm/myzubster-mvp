@@ -56,3 +56,12 @@ def test_proof_v2_against_sepolia():
         expected_hash="0x6097e05866bafceec24663d2638cb1dae5742ac78284abbfd45cc9c3b0bfb845",
     )
     assert result["status"] == "MATCH"
+
+
+def test_visual_verifier_page():
+    from src.api.server import app
+    client = app.test_client()
+    response = client.get("/knowledge-proof-verifier")
+    assert response.status_code == 200
+    assert b"Knowledge Proof Verifier" in response.data
+    assert b"Verifica Proof" in response.data
