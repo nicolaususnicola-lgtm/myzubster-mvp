@@ -44,7 +44,7 @@ def read_knowledge_hash(
     rpc_url: str = DEFAULT_SEPOLIA_RPC_URL,
     timeout: float = 20,
 ) -> str:
-    """Read knowledgeHash() from an immutable MyZubsterProof contract."""
+    """Read knowledgeHash from storage slot 0 of MyZubsterProof."""
     if not isinstance(contract_address, str) or not contract_address.startswith("0x") or len(contract_address) != 42:
         raise ValueError("invalid Ethereum contract address")
 
