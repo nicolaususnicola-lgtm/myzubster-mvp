@@ -92,3 +92,16 @@ python -c "import hashlib, pathlib; p=pathlib.Path('proofs/knowledge-card-6abaae
 The Sepolia contract records a digest equal to the SHA-256 of the exact canonical payload committed in this repository. Anyone can recompute the digest from that file and compare it with `knowledgeHash()` on Sepolia.
 
 It does **not** independently certify the truth, ownership, or professional validity of the statements contained in the Knowledge Card. It establishes a cryptographic link between the committed canonical payload and the on-chain digest.
+
+
+## N4K48 profile evidence update — 2026-09-30
+
+The N4K48 GitHub profile was updated after completing the repeatable Proof v2 verifier (MYZ-213) to expose the latest documented knowledge path:
+
+`N4K48 → Knowledge Card → GitHub evidence → canonical payload → SHA-256 → Ethereum Sepolia Proof v2 → Knowledge Graph`
+
+Profile evidence commit: [b98230ceab71a760c8045f0c42401e0c70b12a1c](https://github.com/nicolaususnicola-lgtm/nicolaususnicola-lgtm/commit/b98230ceab71a760c8045f0c42401e0c70b12a1c)
+
+Verifier implementation: [merged PR #16](https://github.com/nicolaususnicola-lgtm/myzubster-mvp/pull/16)
+
+This profile update is supporting evidence of the documented learning/contribution path. It does not change the immutable Proof v2 payload or its on-chain digest.
