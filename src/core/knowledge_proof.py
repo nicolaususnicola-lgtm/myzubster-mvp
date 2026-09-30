@@ -11,7 +11,7 @@ import requests
 
 SEPOLIA_CHAIN_ID = 11155111
 DEFAULT_SEPOLIA_RPC_URL = "https://ethereum-sepolia-rpc.publicnode.com"
-KNOWLEDGE_HASH_SELECTOR = "0xf8a0581f"
+KNOWLEDGE_HASH_SIGNATURE = "knowledgeHash()"
 
 
 def sha256_file(path: str | Path) -> str:
@@ -48,14 +48,34 @@ def read_knowledge_hash(
     if not isinstance(contract_address, str) or not contract_address.startswith("0x") or len(contract_address) != 42:
         raise ValueError("invalid Ethereum contract address")
 
-    response = requests.post(
+    signature_hex = "0x" + KNOWLEDGE_HASH_SIGNATURE.encode("utf-8").hex()
+    selector_response = requests.post(
         rpc_url,
         json={
             "jsonrpc": "2.0",
             "id": 1,
+            "method": "web3_sha3",
+            "params": [signature_hex],
+        },
+        timeout=timeout,
+    )
+    selector_response.raise_for_status()
+    selector_payload: dict[str, Any] = selector_response.json()
+    if selector_payload.get("error"):
+        raise ValueError(f"Ethereum RPC error: {selector_payload['error']}")
+    selector_hash = selector_payload.get("result", "")
+    if not isinstance(selector_hash, str) or len(selector_hash) < 10:
+        raise ValueError("Ethereum RPC returned an invalid function signature hash")
+    selector = selector_hash[:10]
+
+    response = requests.post(
+        rpc_url,
+        json={
+            "jsonrpc": "2.0",
+            "id": 2,
             "method": "eth_call",
             "params": [
-                {"to": contract_address, "data": KNOWLEDGE_HASH_SELECTOR},
+                {"to": contract_address, "data": selector},
                 "latest",
             ],
         },
