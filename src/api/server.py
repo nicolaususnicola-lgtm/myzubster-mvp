@@ -14,6 +14,7 @@ sys.path.insert(0, PROJECT_ROOT)
 from persistence_helper import load_ledger, load_observations, save_ledger, save_observations
 from src.core.economics import Allocation, AssetCreatedEvent, RevenueEvent, calculate_allocations, calculate_balance_breakdown, normalize_revenue_source, validate_allocations
 from src.core.observation import Observation
+from src.core.knowledge_proof import verify_knowledge_proof
 from src.api.comics import comics_api, answer_catalog
 
 
@@ -434,6 +435,46 @@ def _authoritative_metadata_answer(question, context):
             )
 
     return " ".join(parts) if parts else None
+
+@app.route("/api/proofs/knowledge-card/verify", methods=["POST"])
+def verify_knowledge_card_proof():
+    data = request.get_json(silent=True)
+    if not isinstance(data, dict):
+        return jsonify({"error": "Corpo JSON obbligatorio"}), 400
+
+    payload = data.get("payload")
+    contract_address = data.get("contract_address")
+    expected_hash = data.get("expected_hash")
+
+    if not isinstance(payload, str) or not payload.strip():
+        return jsonify({"error": "payload obbligatorio"}), 400
+    if not isinstance(contract_address, str) or not contract_address.strip():
+        return jsonify({"error": "contract_address obbligatorio"}), 400
+
+    payload_path = os.path.abspath(os.path.join(PROJECT_ROOT, payload.strip()))
+    project_root = os.path.abspath(PROJECT_ROOT)
+    if os.path.commonpath([project_root, payload_path]) != project_root:
+        return jsonify({"error": "payload fuori dal repository"}), 400
+    if not os.path.isfile(payload_path):
+        return jsonify({"error": "payload non trovato"}), 404
+
+    try:
+        result = verify_knowledge_proof(
+            payload_path,
+            contract_address.strip(),
+            expected_hash=expected_hash,
+            rpc_url=os.environ.get("SEPOLIA_RPC_URL", "https://ethereum-sepolia-rpc.publicnode.com"),
+            timeout=min(AI_REQUEST_TIMEOUT, 30),
+        )
+    except ValueError as error:
+        return jsonify({"error": str(error)}), 400
+    except requests.RequestException:
+        app.logger.exception("Ethereum Sepolia RPC non raggiungibile")
+        return jsonify({"error": "Ethereum Sepolia temporaneamente non disponibile"}), 503
+
+    result["payload"] = os.path.relpath(payload_path, project_root).replace(os.sep, "/")
+    return jsonify(result)
+
 
 @app.route("/api/ai/ask", methods=["POST"])
 def ask_ai():
