@@ -1,4 +1,6 @@
 import hashlib
+import subprocess
+import sys
 
 from src.core import knowledge_proof
 
@@ -90,3 +92,14 @@ def test_cli_returns_nonzero_when_rpc_is_unavailable(monkeypatch, tmp_path):
 
     monkeypatch.setattr(cli, "verify_knowledge_proof", unavailable)
     assert cli.main([str(payload), "0x21787249Df054132093FcF09bB914C0CCC539390"]) == 2
+
+
+def test_cli_can_run_directly_from_repo_root():
+    result = subprocess.run(
+        [sys.executable, "scripts/verify_knowledge_proof.py", "--help"],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert result.returncode == 0, result.stderr
+    assert "Verify exact Knowledge Card payload bytes against Ethereum Sepolia." in result.stdout
