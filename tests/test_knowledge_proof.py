@@ -47,3 +47,12 @@ def test_verify_knowledge_proof_detects_mismatch(monkeypatch, tmp_path):
 def test_committed_proof_v2_payload_digest():
     payload = "proofs/knowledge-card-6abaaefb3a7460c4574a45fd-v1.json"
     assert knowledge_proof.sha256_file(payload) == "6097e05866bafceec24663d2638cb1dae5742ac78284abbfd45cc9c3b0bfb845"
+
+
+def test_proof_v2_against_sepolia():
+    result = knowledge_proof.verify_knowledge_proof(
+        "proofs/knowledge-card-6abaaefb3a7460c4574a45fd-v1.json",
+        "0x21787249Df054132093FcF09bB914C0CCC539390",
+        expected_hash="0x6097e05866bafceec24663d2638cb1dae5742ac78284abbfd45cc9c3b0bfb845",
+    )
+    assert result["status"] == "MATCH"
