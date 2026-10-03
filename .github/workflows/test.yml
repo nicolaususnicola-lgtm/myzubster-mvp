@@ -72,7 +72,7 @@ jobs:
             --data '{"description":"CI Docker","latitude":44.0678,"longitude":12.5695}'
           curl --fail --silent http://127.0.0.1:5001/api/observations | grep 'CI Docker'
           curl --fail --silent http://127.0.0.1:5001/api/comics > /tmp/comics.json
-          python -c "import json; d=json.load(open('/tmp/comics.json')); assert d['count']==3; assert {c['comic_id'] for c in d['comics']} == {'n4k48-comic-001','n4k48-comic-002','n4k48-comic-003'}"
+          python -c "import json; d=json.load(open('/tmp/comics.json')); assert d['count']==4; assert {c['comic_id'] for c in d['comics']} == {'n4k48-comic-001','n4k48-comic-002','n4k48-comic-003','n4k48-comic-004'}"
           curl --fail --silent --request POST http://127.0.0.1:5001/api/zorgax/ask \
             --header 'Content-Type: application/json' \
             --data '{"question":"Quale candidata?","action":"candidate"}' > /tmp/candidate.json
