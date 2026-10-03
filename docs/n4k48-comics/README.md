@@ -1,6 +1,6 @@
 # N4K48 × MyZubster — Dall’idea software al metaverso
 
-Tre tavole narrative sul percorso di N4K48: idea software, sviluppo e visione del metaverso MyZubster. Visual create con assistenza AI, mantenendo l'identità del personaggio scelta da Nicola.
+Quattro tavole narrative sul percorso di N4K48: idea software, sviluppo e visione del metaverso MyZubster. Visual create con assistenza AI, mantenendo l'identità del personaggio scelta da Nicola.
 
 ## 01 — Dall’idea software al metaverso
 
@@ -13,6 +13,14 @@ Tre tavole narrative sul percorso di N4K48: idea software, sviluppo e visione de
 ## 03 — Verso Neon Plaza
 
 ![Verso Neon Plaza](03-verso-neon-plaza.png)
+
+## 04 — Il ponte da costruire
+
+![Il ponte da costruire](04-il-ponte-da-costruire.png)
+
+Racconto illustrato dei controlli locali e della ricerca del connettore. Il collaudo autenticato/end-to-end resta da verificare.
+
+[Scheda e provenienza](../nicola-comics/cards/n4k48-comic-004.md)
 
 ## Contesto delle visual
 
