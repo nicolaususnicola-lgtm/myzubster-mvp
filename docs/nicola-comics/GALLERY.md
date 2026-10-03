@@ -1,8 +1,8 @@
 # Nicola Comics × MyZubster — Catalogo
 
-Aggiornato il 15 settembre 2026. Stato: **PROTOTYPE**.
+Aggiornato il 3 ottobre 2026. Stato: **PROTOTYPE**.
 
-## Le tre tavole N4K48
+## Le quattro tavole N4K48
 
 ### 1. Dall’idea software al metaverso
 
@@ -30,6 +30,16 @@ La visione futura del progetto: uno spazio virtuale da sviluppare, provare con p
 
 - Scheda: [n4k48-comic-003](cards/n4k48-comic-003.md)
 - Stato NFT: `NOT_SELECTED`
+
+### 4. Il ponte da costruire
+
+[![Il ponte da costruire](../n4k48-comics/04-il-ponte-da-costruire.png)](https://github.com/nicolaususnicola-lgtm/myzubster-mvp/blob/dd4fde73008061ba31b595daad8771700dd32ad1/docs/n4k48-comics/04-il-ponte-da-costruire.png)
+
+N4K48 torna al laboratorio: il controllo senza credenziali restituisce HTTP 401, mentre il connettore Node Bridge e il collegamento completo restano da verificare.
+
+- Scheda: [n4k48-comic-004](cards/n4k48-comic-004.md)
+- Stato NFT: `NOT_SELECTED`
+- Generazione assistita da AI; diritti `TO_VERIFY`.
 
 ## Riferimenti precedenti dell’ecosistema
 
