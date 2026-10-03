@@ -18,6 +18,113 @@
   <a href="https://dev.to/n4k48/building-n4k48-my-journey-with-myzubster-ai-and-neon-plaza-3nbp"><strong>✍️ DEV.TO</strong></a>
 </p>
 
+## Cos'è MyZubster MVP
+
+**MyZubster MVP** è un prototipo evidence-first che raccoglie attività e osservazioni, conserva i dati in forma strutturata e permette di interrogarli con strumenti locali di AI/RAG. Il progetto include inoltre un ledger interno per la provenienza economica, un simulatore di ricavi e costi e il pilot **Nicola Comics × Zorgax**.
+
+La regola centrale è semplice: **prima l'evidenza, poi l'AI**. I fatti strutturati vengono letti dai dati del sistema; l'AI locale può aiutare a cercare, riassumere e collegare le informazioni senza trasformare ipotesi in fatti verificati.
+
+### Cosa puoi fare oggi
+
+- registrare e consultare osservazioni tramite API;
+- conservare i dati in modo persistente;
+- usare Qdrant + Ollama per ricerca semantica e risposte RAG locali;
+- consultare il ledger MYZ interno e i saldi derivati dagli eventi registrati;
+- simulare scenari di ricavi, costi e margini senza modificarne il ledger reale;
+- consultare il catalogo **Nicola Comics** e interrogarlo tramite l'adapter read-only di **Zorgax**;
+- verificare le proof crittografiche documentate dal progetto.
+
+> **Stato:** `v0.1.0-rc2` è una release candidate pubblica e verificata tramite CI. È un MVP sperimentale, non una release production-ready. Wallet, pagamenti reali e mint NFT non vengono attivati dalla RC2.
+
+## Come si usa
+
+### 1. Scarica la RC2
+
+Apri la [release v0.1.0-rc2](https://github.com/nicolaususnicola-lgtm/myzubster-mvp/releases/tag/v0.1.0-rc2) e scarica **Source code (zip)** oppure clona il repository.
+
+~~~bash
+git clone https://github.com/nicolaususnicola-lgtm/myzubster-mvp.git
+cd myzubster-mvp
+git checkout v0.1.0-rc2
+~~~
+
+### 2. Avvia con Docker
+
+Requisito principale: **Docker Desktop / Docker Compose**.
+
+~~~bash
+docker compose up --build -d
+docker compose ps
+~~~
+
+Quando il servizio API risulta `healthy`, prova `http://localhost:5000/api/observations`.
+
+Per fermare lo stack:
+
+~~~bash
+docker compose down
+~~~
+
+Non usare `docker compose down -v` se vuoi conservare i dati nei volumi Docker.
+
+### 3. Registra una prima osservazione
+
+~~~bash
+curl -X POST http://localhost:5000/api/observation \
+  -H "Content-Type: application/json" \
+  -d '{"description":"La mia prima osservazione","latitude":44.0678,"longitude":12.5695}'
+~~~
+
+Poi rileggi le osservazioni con `curl http://localhost:5000/api/observations`.
+
+### 4. Prova Nicola Comics e Zorgax
+
+Catalogo:
+
+~~~bash
+curl http://localhost:5000/api/comics
+~~~
+
+Richiesta read-only a Zorgax:
+
+~~~bash
+curl -X POST http://localhost:5000/api/zorgax/ask \
+  -H "Content-Type: application/json" \
+  -d '{"question":"Quale fumetto è candidato?","action":"candidate"}'
+~~~
+
+L'indicazione `NFT_CANDIDATE` è uno stato del catalogo: **non significa che il fumetto sia stato mintato o registrato on-chain**.
+
+### 5. Abilita AI locale e RAG (opzionale)
+
+Installa [Ollama](https://ollama.com/) sul computer host e prepara i modelli:
+
+~~~bash
+ollama pull qwen2.5:0.5b
+ollama pull nomic-embed-text
+~~~
+
+Poi avvia lo stack Docker. I servizi locali predefiniti sono:
+
+| Servizio | Indirizzo |
+| --- | --- |
+| MyZubster API | `http://localhost:5000` |
+| Open WebUI | `http://localhost:3001` |
+| Qdrant | `http://localhost:6333/dashboard` |
+| Ollama | `http://localhost:11434` |
+
+## Online o locale?
+
+Il repository può essere eseguito **localmente con Docker**. Esiste anche un **pilot pubblico** su [myzubster-mvp.onrender.com](https://myzubster-mvp.onrender.com/), utile per dimostrazione e verifica del pilot. Il deployment pubblico non va confuso con una garanzia di servizio production-ready.
+
+Per pubblicare una propria istanza su Internet servono configurazione HTTPS, gestione dei segreti, controllo accessi, storage persistente e backup. **Non esporre direttamente a Internet il Docker Compose di sviluppo.**
+
+## RC2 verificata
+
+La release [`v0.1.0-rc2`](https://github.com/nicolaususnicola-lgtm/myzubster-mvp/releases/tag/v0.1.0-rc2) punta al checkpoint verificato `3a17df5ca92093351cbdd3343114471ac8561385`. La CI della release candidate ha verificato test Python/API, sintassi, build Docker, avvio del container e contratti principali del catalogo Nicola Comics.
+
+---
+
 ## 🔐 Knowledge Card → Ethereum Sepolia Proof v2
 
 N4K48 ha completato un proof-of-concept che collega una Knowledge Card MyZubster a una prova crittografica pubblica. Il contenuto attestato è conservato come payload nel repository; il suo SHA-256 è stato registrato nel contratto `MyZubsterProof` su Ethereum Sepolia e il valore letto da `knowledgeHash()` coincide con il digest documentato.
@@ -108,7 +215,7 @@ The public development snapshot from today's MyZubster/N4K48 collaboration has b
 
 ## Nicola Comics × MyZubster
 
-**Tre tavole pubblicate:** il percorso di N4K48 dalla propria idea software allo sviluppo e alla visione del metaverso.
+**Quattro tavole pubblicate:** il percorso di N4K48 dalla propria idea software allo sviluppo e alla visione del metaverso.
 
 [**Apri la galleria completa**](docs/n4k48-comics/README.md) · [Avanzamento del progetto](docs/n4k48-comics/ROADMAP.md)
 
