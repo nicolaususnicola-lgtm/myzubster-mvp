@@ -295,6 +295,7 @@ def _generate_answer(question, context):
         json={
             "model": OLLAMA_MODEL,
             "stream": False,
+            "keep_alive": "10m",
             "messages": [
                 {
                     "role": "system",
