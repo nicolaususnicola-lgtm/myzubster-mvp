@@ -228,21 +228,24 @@ def _find_observation_by_id_in_question(question):
     }
 
     if not observation_ids:
-        return None
+        return False, None
 
     for observation in load_observations():
         if observation.get("id") in observation_ids:
-            return observation
+            return True, observation
 
-    return None
+    return True, None
 
 
 def _search_observations(question):
-    exact_observation = _find_observation_by_id_in_question(
-        question
+    has_observation_id, exact_observation = (
+        _find_observation_by_id_in_question(question)
     )
 
-    if exact_observation is not None:
+    if has_observation_id:
+        if exact_observation is None:
+            return []
+
         return [exact_observation]
 
     question_vector = _ollama_embedding(question)
@@ -290,6 +293,9 @@ def _search_observations(question):
 
 
 def _generate_answer(question, context):
+    if not context:
+        return "Informazione non disponibile nelle fonti MyZubster."
+
     context_parts = []
 
     for index, observation in enumerate(

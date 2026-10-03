@@ -105,6 +105,23 @@ def test_search_observations_prefers_exact_id(load, embedding):
     embedding.assert_not_called()
 
 
+@patch("src.api.server._ollama_embedding")
+@patch("src.api.server.load_observations", return_value=[])
+def test_search_observations_unknown_id_returns_no_sources(
+    load,
+    embedding,
+):
+    from src.api.server import _search_observations
+
+    result = _search_observations(
+        "Riporta la descrizione dell ID deadbeefdeadbeef."
+    )
+
+    assert result == []
+    load.assert_called_once_with()
+    embedding.assert_not_called()
+
+
 @patch("src.api.server._request_json")
 @patch("src.api.server._ensure_qdrant_collection")
 @patch("src.api.server._ollama_embedding", return_value=[0.1, 0.2])
@@ -137,6 +154,22 @@ def test_search_observations_without_id_uses_semantic_search(
     embedding.assert_called_once_with("Cosa e stato osservato?")
     ensure_collection.assert_called_once_with(2)
     request_json.assert_called_once()
+
+
+@patch("src.api.server._request_json")
+def test_generate_answer_without_sources_is_deterministic(request_json):
+    from src.api.server import _generate_answer
+
+    answer = _generate_answer(
+        "Riporta la descrizione dell ID deadbeefdeadbeef.",
+        [],
+    )
+
+    assert (
+        answer
+        == "Informazione non disponibile nelle fonti MyZubster."
+    )
+    request_json.assert_not_called()
 
 
 @patch("src.api.server._request_json")
