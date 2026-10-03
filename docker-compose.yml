@@ -4,7 +4,7 @@ services:
       context: .
     init: true
     ports:
-      - "5000:5000"
+      - "127.0.0.1:5000:5000"
     environment:
       MYZUBSTER_HOST: "0.0.0.0"
       MYZUBSTER_PORT: "5000"
