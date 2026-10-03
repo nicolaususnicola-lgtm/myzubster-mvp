@@ -4,7 +4,7 @@ services:
       context: .
     init: true
     ports:
-      - "5000:5000"
+      - "127.0.0.1:5000:5000"
     environment:
       MYZUBSTER_HOST: "0.0.0.0"
       MYZUBSTER_PORT: "5000"
@@ -45,6 +45,8 @@ services:
     environment:
       OLLAMA_BASE_URL: "http://host.docker.internal:11434"
       WEBUI_AUTH: "true"
+      OPENAI_API_BASE_URL: "http://api:5000/v1"
+      OPENAI_API_KEY: "myzubster-local"
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:
