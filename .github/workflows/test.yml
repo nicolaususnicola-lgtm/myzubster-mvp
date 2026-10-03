@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main, master ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main, master, pilot/n4k48-tested-checkpoint ]
 
 jobs:
   test:
@@ -28,7 +28,6 @@ jobs:
       
       - name: Start Flask server
         run: |
-          # Trova e avvia il server (verifica se esiste)
           if [ -f src/api/server.py ]; then
             python src/api/server.py &
           elif [ -f server.py ]; then
