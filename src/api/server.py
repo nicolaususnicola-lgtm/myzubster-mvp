@@ -206,6 +206,11 @@ def _index_observations(observations):
     return len(points)
 
 
+def _reindex_observations():
+    observations = load_observations()
+    return _index_observations(observations)
+
+
 def _search_observations(question):
     question_vector = _ollama_embedding(question)
     _ensure_qdrant_collection(

@@ -67,6 +67,24 @@ def test_create_observation_preserves_structured_metadata(load, save, index):
     save.assert_called_once()
     index.assert_called_once_with([observation])
 
+@patch("src.api.server._index_observations", return_value=2)
+@patch("src.api.server.load_observations")
+def test_reindex_observations_indexes_persisted_observations(load, index):
+    observations = [
+        {"id": "1", "description": "Prima osservazione"},
+        {"id": "2", "description": "Seconda osservazione"},
+    ]
+    load.return_value = observations
+
+    from src.api.server import _reindex_observations
+
+    result = _reindex_observations()
+
+    assert result == 2
+    load.assert_called_once_with()
+    index.assert_called_once_with(observations)
+
+
 @patch("src.api.server._request_json")
 def test_generate_answer_sends_structured_metadata_to_ollama(request_json):
     request_json.return_value = {
