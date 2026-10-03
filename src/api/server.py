@@ -1130,6 +1130,27 @@ def _authoritative_metadata_answer(
     if not context:
         return None
 
+    question_lower = (
+        question.lower()
+    )
+
+    description = context[0].get(
+        "description"
+    )
+
+    if (
+        isinstance(description, str)
+        and description
+        and any(
+            term in question_lower
+            for term in (
+                "descrizione",
+                "description",
+            )
+        )
+    ):
+        return description
+
     metadata = context[0].get(
         "metadata"
     )
@@ -1139,10 +1160,6 @@ def _authoritative_metadata_answer(
         dict,
     ):
         return None
-
-    question_lower = (
-        question.lower()
-    )
 
     parts = []
 

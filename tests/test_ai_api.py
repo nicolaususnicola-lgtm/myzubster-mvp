@@ -156,6 +156,29 @@ def test_search_observations_without_id_uses_semantic_search(
     request_json.assert_called_once()
 
 
+def test_authoritative_answer_returns_description_verbatim():
+    from src.api.server import _authoritative_metadata_answer
+
+    context = [
+        {
+            "id": "21089771b2a73a9f",
+            "description": "Test reale MyZubster RC2 - N4K48",
+        }
+    ]
+
+    answer = _authoritative_metadata_answer(
+        (
+            "Qual e la descrizione del test reale "
+            "MyZubster RC2 N4K48? "
+            "Rispondi soltanto con la descrizione "
+            "presente nelle fonti."
+        ),
+        context,
+    )
+
+    assert answer == "Test reale MyZubster RC2 - N4K48"
+
+
 @patch("src.api.server._request_json")
 def test_generate_answer_without_sources_is_deterministic(request_json):
     from src.api.server import _generate_answer
