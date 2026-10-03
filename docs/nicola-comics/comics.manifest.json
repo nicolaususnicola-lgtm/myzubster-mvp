@@ -5,7 +5,7 @@
     "status": "PROTOTYPE",
     "owner": "Nicola",
     "source_repo": "nicolaususnicola-lgtm/myzubster-mvp",
-    "updated_at": "2026-09-15"
+    "updated_at": "2026-10-03"
   },
   "comics": [
     {
@@ -141,6 +141,30 @@
       "transaction_hash": null,
       "metadata_uri": null,
       "public_url": "https://github.com/nicolaususnicola-lgtm/myzubster-mvp/blob/f853710e24c305cb292b271c0d37696147e35239/docs/n4k48-comics/03-verso-neon-plaza.png"
+    },
+    {
+      "comic_id": "n4k48-comic-004",
+      "title": "Il ponte da costruire",
+      "series": "N4K48 × MyZubster — Dall’idea software al metaverso",
+      "episode": 4,
+      "author": "Nicola / N4K48 — ideazione e direzione creativa; immagini generate con assistenza AI",
+      "description": "N4K48 torna al laboratorio: il controllo senza credenziali restituisce HTTP 401, mentre il connettore Node Bridge e il collegamento completo restano da verificare.",
+      "asset_path": "nicolaususnicola-lgtm/myzubster-mvp:docs/n4k48-comics/04-il-ponte-da-costruire.png",
+      "source_hash": "39d1a6d049b21d0c505fe3373f829ccc5c1cfac7",
+      "source_hash_type": "git_blob_sha1",
+      "source_commit": "dd4fde73008061ba31b595daad8771700dd32ad1",
+      "created_at": "2026-10-03",
+      "rights_status": "TO_VERIFY",
+      "rights_note": "Provenienza della generazione documentata; autorizzazioni su elementi visivi MyZubster esterni e uso NFT/commerciale da verificare.",
+      "nft_status": "NOT_SELECTED",
+      "selection_status": "NOT_SELECTED",
+      "pilot_relationship": "CREATED_FOR_NICOLA_PILOT",
+      "network": null,
+      "contract_address": null,
+      "token_id": null,
+      "transaction_hash": null,
+      "metadata_uri": null,
+      "public_url": "https://github.com/nicolaususnicola-lgtm/myzubster-mvp/blob/dd4fde73008061ba31b595daad8771700dd32ad1/docs/n4k48-comics/04-il-ponte-da-costruire.png"
     }
   ]
 }
