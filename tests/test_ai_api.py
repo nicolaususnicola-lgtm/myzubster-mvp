@@ -85,6 +85,60 @@ def test_reindex_observations_indexes_persisted_observations(load, index):
     index.assert_called_once_with(observations)
 
 
+@patch("src.api.server._ollama_embedding")
+@patch("src.api.server.load_observations")
+def test_search_observations_prefers_exact_id(load, embedding):
+    observation = {
+        "id": "21089771b2a73a9f",
+        "description": "Test reale MyZubster RC2 - N4K48",
+    }
+    load.return_value = [observation]
+
+    from src.api.server import _search_observations
+
+    result = _search_observations(
+        "Riporta la descrizione dell ID 21089771b2a73a9f."
+    )
+
+    assert result == [observation]
+    load.assert_called_once_with()
+    embedding.assert_not_called()
+
+
+@patch("src.api.server._request_json")
+@patch("src.api.server._ensure_qdrant_collection")
+@patch("src.api.server._ollama_embedding", return_value=[0.1, 0.2])
+def test_search_observations_without_id_uses_semantic_search(
+    embedding,
+    ensure_collection,
+    request_json,
+):
+    observation = {
+        "id": "1",
+        "description": "Osservazione semantica",
+    }
+    request_json.return_value = {
+        "result": {
+            "points": [
+                {
+                    "payload": {
+                        "observation": observation,
+                    }
+                }
+            ]
+        }
+    }
+
+    from src.api.server import _search_observations
+
+    result = _search_observations("Cosa e stato osservato?")
+
+    assert result == [observation]
+    embedding.assert_called_once_with("Cosa e stato osservato?")
+    ensure_collection.assert_called_once_with(2)
+    request_json.assert_called_once()
+
+
 @patch("src.api.server._request_json")
 def test_generate_answer_sends_structured_metadata_to_ollama(request_json):
     request_json.return_value = {

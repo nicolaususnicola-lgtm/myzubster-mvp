@@ -211,7 +211,40 @@ def _reindex_observations():
     return _index_observations(observations)
 
 
+def _find_observation_by_id_in_question(question):
+    candidates = {
+        token.strip(".,;:!?()[]{}\"'")
+        for token in question.split()
+    }
+
+    observation_ids = {
+        candidate
+        for candidate in candidates
+        if len(candidate) == 16
+        and all(
+            character in "0123456789abcdefABCDEF"
+            for character in candidate
+        )
+    }
+
+    if not observation_ids:
+        return None
+
+    for observation in load_observations():
+        if observation.get("id") in observation_ids:
+            return observation
+
+    return None
+
+
 def _search_observations(question):
+    exact_observation = _find_observation_by_id_in_question(
+        question
+    )
+
+    if exact_observation is not None:
+        return [exact_observation]
+
     question_vector = _ollama_embedding(question)
     _ensure_qdrant_collection(
         len(question_vector)
