@@ -1359,6 +1359,147 @@ def ask_ai():
     )
 
 
+@app.route("/v1/models", methods=["GET"])
+def openai_models():
+    return jsonify(
+        {
+            "object": "list",
+            "data": [
+                {
+                    "id": "myzubster-rag",
+                    "object": "model",
+                    "owned_by": "myzubster",
+                }
+            ],
+        }
+    )
+
+
+@app.route("/v1/chat/completions", methods=["POST"])
+def openai_chat_completions():
+    data = request.get_json(silent=True)
+
+    if not isinstance(data, dict):
+        return jsonify(
+            {
+                "error": {
+                    "message": "Corpo JSON obbligatorio",
+                    "type": "invalid_request_error",
+                }
+            }
+        ), 400
+
+    messages = data.get("messages")
+
+    if not isinstance(messages, list):
+        return jsonify(
+            {
+                "error": {
+                    "message": "messages obbligatorio",
+                    "type": "invalid_request_error",
+                }
+            }
+        ), 400
+
+    question = None
+
+    for message in reversed(messages):
+        if (
+            isinstance(message, dict)
+            and message.get("role") == "user"
+            and isinstance(message.get("content"), str)
+            and message["content"].strip()
+        ):
+            question = message["content"].strip()
+            break
+
+    if question is None:
+        return jsonify(
+            {
+                "error": {
+                    "message": "Messaggio utente obbligatorio",
+                    "type": "invalid_request_error",
+                }
+            }
+        ), 400
+
+    if len(question) > AI_MAX_QUESTION_LENGTH:
+        return jsonify(
+            {
+                "error": {
+                    "message": "Domanda troppo lunga",
+                    "type": "invalid_request_error",
+                }
+            }
+        ), 400
+
+    try:
+        context = _search_observations(question)
+
+        answer = _authoritative_metadata_answer(
+            question,
+            context,
+        )
+
+        if answer is None:
+            answer = _generate_answer(
+                question,
+                context,
+            )
+
+    except (OSError, ValueError) as error:
+        app.logger.exception(
+            "Errore durante la richiesta OpenAI-compatible"
+        )
+
+        return jsonify(
+            {
+                "error": {
+                    "message": (
+                        "Risposta AI non disponibile: "
+                        f"{error}"
+                    ),
+                    "type": "server_error",
+                }
+            }
+        ), 502
+
+    except requests.RequestException:
+        app.logger.exception(
+            "Ollama o Qdrant non raggiungibile"
+        )
+
+        return jsonify(
+            {
+                "error": {
+                    "message": (
+                        "Servizio AI temporaneamente "
+                        "non disponibile"
+                    ),
+                    "type": "server_error",
+                }
+            }
+        ), 503
+
+    return jsonify(
+        {
+            "id": "chatcmpl-myzubster",
+            "object": "chat.completion",
+            "model": "myzubster-rag",
+            "choices": [
+                {
+                    "index": 0,
+                    "message": {
+                        "role": "assistant",
+                        "content": answer,
+                    },
+                    "finish_reason": "stop",
+                }
+            ],
+        }
+    )
+
+
 if __name__ == "__main__":
     app.run(
         host=os.environ.get(

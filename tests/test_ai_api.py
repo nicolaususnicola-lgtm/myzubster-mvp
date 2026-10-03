@@ -183,3 +183,117 @@ def test_list_asset_events_returns_only_assets(load):
             }
         ],
     }
+
+
+def test_openai_models_lists_myzubster_rag():
+    client = app.test_client()
+
+    response = client.get("/v1/models")
+
+    assert response.status_code == 200
+    assert response.get_json() == {
+        "object": "list",
+        "data": [
+            {
+                "id": "myzubster-rag",
+                "object": "model",
+                "owned_by": "myzubster",
+            }
+        ],
+    }
+
+
+@patch("src.api.server._generate_answer")
+@patch("src.api.server._authoritative_metadata_answer", return_value=None)
+@patch("src.api.server._search_observations")
+def test_openai_chat_completions_uses_rag(
+    search_observations,
+    authoritative_answer,
+    generate_answer,
+):
+    context = [
+        {
+            "id": "obs-1",
+            "description": "Osservazione N4K48",
+        }
+    ]
+
+    search_observations.return_value = context
+    generate_answer.return_value = "Risposta MyZubster"
+
+    client = app.test_client()
+
+    response = client.post(
+        "/v1/chat/completions",
+        json={
+            "model": "myzubster-rag",
+            "messages": [
+                {
+                    "role": "system",
+                    "content": "Assistente MyZubster",
+                },
+                {
+                    "role": "user",
+                    "content": "Cosa sai di N4K48?",
+                },
+            ],
+        },
+    )
+
+    assert response.status_code == 200
+
+    body = response.get_json()
+
+    assert body["object"] == "chat.completion"
+    assert body["model"] == "myzubster-rag"
+    assert body["choices"][0]["message"] == {
+        "role": "assistant",
+        "content": "Risposta MyZubster",
+    }
+    assert body["choices"][0]["finish_reason"] == "stop"
+
+    search_observations.assert_called_once_with(
+        "Cosa sai di N4K48?"
+    )
+    authoritative_answer.assert_called_once_with(
+        "Cosa sai di N4K48?",
+        context,
+    )
+    generate_answer.assert_called_once_with(
+        "Cosa sai di N4K48?",
+        context,
+    )
+
+
+def test_openai_chat_completions_requires_messages():
+    client = app.test_client()
+
+    response = client.post(
+        "/v1/chat/completions",
+        json={
+            "model": "myzubster-rag",
+        },
+    )
+
+    assert response.status_code == 400
+    assert response.get_json()["error"]["type"] == "invalid_request_error"
+
+
+def test_openai_chat_completions_requires_user_message():
+    client = app.test_client()
+
+    response = client.post(
+        "/v1/chat/completions",
+        json={
+            "model": "myzubster-rag",
+            "messages": [
+                {
+                    "role": "system",
+                    "content": "Assistente MyZubster",
+                }
+            ],
+        },
+    )
+
+    assert response.status_code == 400
+    assert response.get_json()["error"]["type"] == "invalid_request_error"
