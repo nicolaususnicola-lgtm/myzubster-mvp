@@ -17,7 +17,7 @@ def test_complete_catalog_path_without_ai_services(client):
         response = client.post("/api/zorgax/ask", json={"question": "Mostrami i fumetti di Nicola"})
         assert response.status_code == 200
         entries = response.json["sources"]
-        assert len(entries) == 3
+        assert len(entries) == 4
         for entry in entries:
             detail = client.get(entry["detail_url"])
             assert detail.status_code == 200
@@ -30,8 +30,8 @@ def test_complete_catalog_path_without_ai_services(client):
 
 
 def test_references_are_explicit_opt_in(client):
-    assert client.get("/api/comics").json["count"] == 3
-    assert client.get("/api/comics?include_references=true").json["count"] == 6
+    assert client.get("/api/comics").json["count"] == 4
+    assert client.get("/api/comics?include_references=true").json["count"] == 7
 
 
 def test_candidate_is_proposal_and_not_minted(client):
