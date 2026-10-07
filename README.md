@@ -113,6 +113,19 @@ Poi avvia lo stack Docker. I servizi locali predefiniti sono:
 | Qdrant | `http://localhost:6333/dashboard` |
 | Ollama | `http://localhost:11434` |
 
+## Interoperabilità live VPS ↔ N4K48 — TESTED
+
+Il **7 ottobre 2026** è stato completato con **PASS** un test live circoscritto tra la VPS MyZubster e l'ambiente Docker N4K48 controllato dal contributor.
+
+```text
+VPS MyZubster → broker HTTPS autenticato → agent N4K48 Docker
+              → catalogo locale → risultato restituito al Bridge
+```
+
+Il job `gallery` è stato elaborato dall'agent remoto, è tornato al broker con `state: done` e ha restituito i quattro titoli del catalogo. Il checkpoint pubblico upstream e i riferimenti hash/runtime sono conservati nel [record tecnico versionato](docs/N4K48_INTEROPERABILITY_2026-10-07.md).
+
+> **Boundary:** questo dimostra interoperabilità tecnica verificata tra ambienti amministrati indipendentemente lungo il percorso broker autenticato. Non dimostra ancora decentralizzazione completa, networking P2P diretto o certificazione di sicurezza/produzione.
+
 ## Online o locale?
 
 Il repository può essere eseguito **localmente con Docker**. Esiste anche un **pilot pubblico** su [myzubster-mvp.onrender.com](https://myzubster-mvp.onrender.com/), utile per dimostrazione e verifica del pilot. Il deployment pubblico non va confuso con una garanzia di servizio production-ready.
