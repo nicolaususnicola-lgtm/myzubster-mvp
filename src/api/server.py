@@ -206,7 +206,48 @@ def _index_observations(observations):
     return len(points)
 
 
+def _reindex_observations():
+    observations = load_observations()
+    return _index_observations(observations)
+
+
+def _find_observation_by_id_in_question(question):
+    candidates = {
+        token.strip(".,;:!?()[]{}\"'")
+        for token in question.split()
+    }
+
+    observation_ids = {
+        candidate
+        for candidate in candidates
+        if len(candidate) == 16
+        and all(
+            character in "0123456789abcdefABCDEF"
+            for character in candidate
+        )
+    }
+
+    if not observation_ids:
+        return False, None
+
+    for observation in load_observations():
+        if observation.get("id") in observation_ids:
+            return True, observation
+
+    return True, None
+
+
 def _search_observations(question):
+    has_observation_id, exact_observation = (
+        _find_observation_by_id_in_question(question)
+    )
+
+    if has_observation_id:
+        if exact_observation is None:
+            return []
+
+        return [exact_observation]
+
     question_vector = _ollama_embedding(question)
     _ensure_qdrant_collection(
         len(question_vector)
@@ -252,6 +293,9 @@ def _search_observations(question):
 
 
 def _generate_answer(question, context):
+    if not context:
+        return "Informazione non disponibile nelle fonti MyZubster."
+
     context_parts = []
 
     for index, observation in enumerate(
@@ -295,6 +339,7 @@ def _generate_answer(question, context):
         json={
             "model": OLLAMA_MODEL,
             "stream": False,
+            "keep_alive": "10m",
             "messages": [
                 {
                     "role": "system",
@@ -1085,6 +1130,27 @@ def _authoritative_metadata_answer(
     if not context:
         return None
 
+    question_lower = (
+        question.lower()
+    )
+
+    description = context[0].get(
+        "description"
+    )
+
+    if (
+        isinstance(description, str)
+        and description
+        and any(
+            term in question_lower
+            for term in (
+                "descrizione",
+                "description",
+            )
+        )
+    ):
+        return description
+
     metadata = context[0].get(
         "metadata"
     )
@@ -1094,10 +1160,6 @@ def _authoritative_metadata_answer(
         dict,
     ):
         return None
-
-    question_lower = (
-        question.lower()
-    )
 
     parts = []
 
@@ -1354,6 +1416,147 @@ def ask_ai():
                 OLLAMA_EMBEDDING_MODEL
             ),
             "sources": context,
+        }
+    )
+
+
+@app.route("/v1/models", methods=["GET"])
+def openai_models():
+    return jsonify(
+        {
+            "object": "list",
+            "data": [
+                {
+                    "id": "myzubster-rag",
+                    "object": "model",
+                    "owned_by": "myzubster",
+                }
+            ],
+        }
+    )
+
+
+@app.route("/v1/chat/completions", methods=["POST"])
+def openai_chat_completions():
+    data = request.get_json(silent=True)
+
+    if not isinstance(data, dict):
+        return jsonify(
+            {
+                "error": {
+                    "message": "Corpo JSON obbligatorio",
+                    "type": "invalid_request_error",
+                }
+            }
+        ), 400
+
+    messages = data.get("messages")
+
+    if not isinstance(messages, list):
+        return jsonify(
+            {
+                "error": {
+                    "message": "messages obbligatorio",
+                    "type": "invalid_request_error",
+                }
+            }
+        ), 400
+
+    question = None
+
+    for message in reversed(messages):
+        if (
+            isinstance(message, dict)
+            and message.get("role") == "user"
+            and isinstance(message.get("content"), str)
+            and message["content"].strip()
+        ):
+            question = message["content"].strip()
+            break
+
+    if question is None:
+        return jsonify(
+            {
+                "error": {
+                    "message": "Messaggio utente obbligatorio",
+                    "type": "invalid_request_error",
+                }
+            }
+        ), 400
+
+    if len(question) > AI_MAX_QUESTION_LENGTH:
+        return jsonify(
+            {
+                "error": {
+                    "message": "Domanda troppo lunga",
+                    "type": "invalid_request_error",
+                }
+            }
+        ), 400
+
+    try:
+        context = _search_observations(question)
+
+        answer = _authoritative_metadata_answer(
+            question,
+            context,
+        )
+
+        if answer is None:
+            answer = _generate_answer(
+                question,
+                context,
+            )
+
+    except (OSError, ValueError) as error:
+        app.logger.exception(
+            "Errore durante la richiesta OpenAI-compatible"
+        )
+
+        return jsonify(
+            {
+                "error": {
+                    "message": (
+                        "Risposta AI non disponibile: "
+                        f"{error}"
+                    ),
+                    "type": "server_error",
+                }
+            }
+        ), 502
+
+    except requests.RequestException:
+        app.logger.exception(
+            "Ollama o Qdrant non raggiungibile"
+        )
+
+        return jsonify(
+            {
+                "error": {
+                    "message": (
+                        "Servizio AI temporaneamente "
+                        "non disponibile"
+                    ),
+                    "type": "server_error",
+                }
+            }
+        ), 503
+
+    return jsonify(
+        {
+            "id": "chatcmpl-myzubster",
+            "object": "chat.completion",
+            "model": "myzubster-rag",
+            "choices": [
+                {
+                    "index": 0,
+                    "message": {
+                        "role": "assistant",
+                        "content": answer,
+                    },
+                    "finish_reason": "stop",
+                }
+            ],
         }
     )
 
